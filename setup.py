@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file should be compatible with both Python 2 and Python 3
-from __future__ import unicode_literals, print_function
+
 
 import sys
 
