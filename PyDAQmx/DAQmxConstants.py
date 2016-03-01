@@ -35,15 +35,17 @@ constant_list = []
 for line in include_file:
     m = define.match(line)
     if m:
-       name = m.group(1)
-       value = m.group(2)
-       try:
-           exec(name+'='+value)
-       except NameError:
-           pass
-       except SyntaxError:
-           pass
-       else:
-           constant_list.append(name)
+        name = m.group(1)
+        value = m.group(2)
+        try:
+            exec(name+'='+value)
+        except NameError:
+            pass
+        except SyntaxError:
+            pass
+        else:
+            constant_list.append(name)
 
 include_file.close()
+
+print("hey")

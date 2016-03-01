@@ -1,10 +1,17 @@
-import sys
+﻿import sys
 import platform
 import os
 import ctypes
 from ctypes.util import find_library
 import platform
 
+#dot_h_file     :: str              ヘッダファイルの絶対パス
+#NIDAQmxBase    :: bool             TrueならNIDAQmxBase.h FalseならNIDAQmx.hを使用
+#                                   デフォルトでFalse
+#lib_name       :: str              DAQmxのあるdllの名前
+#get_lib        ::() => tuple       lib_nameからdllを取得する関数
+#                                   Windowsの場合、 (DAQlib :: ctypes.WinDLL, DAQlib_variadic :: ctypes.CDLL)
+#                                   それ以外であれば(DAQlib :: ctypes.CDLL,   DAQlib_variadic :: ctypes.CDLL)
 
 dot_h_file = None
 

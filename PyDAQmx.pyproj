@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b0c23e73-39f3-4d67-afff-1ab052fd1ab0}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>test.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{63c2d5c8-ce08-4883-8977-8b8dc259a07f}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DAQmxConfigTest.py" />
+    <Compile Include="doc\conf.py" />
+    <Compile Include="PyDAQmxTest\test_Task.py" />
+    <Compile Include="PyDAQmxTest\test_variadic.py" />
+    <Compile Include="PyDAQmxTest\__init__.py" />
+    <Compile Include="PyDAQmx\DAQmxCallBack.py" />
+    <Compile Include="PyDAQmx\DAQmxConfig.py" />
+    <Compile Include="PyDAQmx\DAQmxConstants.py" />
+    <Compile Include="PyDAQmx\DAQmxFunctions.py" />
+    <Compile Include="PyDAQmx\DAQmxTypes.py" />
+    <Compile Include="PyDAQmx\example\AnalogInput_acq_IntClk.py" />
+    <Compile Include="PyDAQmx\example\callback.py" />
+    <Compile Include="PyDAQmx\example\callback_oo.py" />
+    <Compile Include="PyDAQmx\example\callback_Task.py" />
+    <Compile Include="PyDAQmx\example\callback_Task_synchronous.py" />
+    <Compile Include="PyDAQmx\example\callback_test_unregister.py" />
+    <Compile Include="PyDAQmx\example\ContinuousPulseTrainGeneration.py" />
+    <Compile Include="PyDAQmx\example\MultiChannelAnalogInput.py" />
+    <Compile Include="PyDAQmx\example\__init__.py" />
+    <Compile Include="PyDAQmx\Task.py" />
+    <Compile Include="PyDAQmx\__init__.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="simple_test.py" />
+    <Compile Include="test.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="doc\_static\default.css" />
+    <Content Include="doc\_static\favicon.ico" />
+    <Content Include="doc\_static\logo.png" />
+    <Content Include="doc\_templates\layout.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="doc" />
+    <Folder Include="doc\_static" />
+    <Folder Include="doc\_templates" />
+    <Folder Include="PyDAQmx" />
+    <Folder Include="PyDAQmxTest" />
+    <Folder Include="PyDAQmx\example" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\2.7" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
