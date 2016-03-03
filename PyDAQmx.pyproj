@@ -26,6 +26,12 @@
     <Compile Include="PyDAQmxTest\test_Task.py" />
     <Compile Include="PyDAQmxTest\test_variadic.py" />
     <Compile Include="PyDAQmxTest\__init__.py" />
+    <Compile Include="PyDAQmx\constants\NI_parser.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\constants\NI_AST.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
     <Compile Include="PyDAQmx\DAQmxConfig.py" />
     <Compile Include="PyDAQmx\DAQmxConstants.py" />
@@ -40,6 +46,9 @@
     <Compile Include="PyDAQmx\example\ContinuousPulseTrainGeneration.py" />
     <Compile Include="PyDAQmx\example\MultiChannelAnalogInput.py" />
     <Compile Include="PyDAQmx\example\__init__.py" />
+    <Compile Include="PyDAQmx\constants\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PyDAQmx\Task.py" />
     <Compile Include="PyDAQmx\__init__.py" />
     <Compile Include="setup.py" />
@@ -59,6 +68,7 @@
     <Folder Include="PyDAQmx" />
     <Folder Include="PyDAQmxTest" />
     <Folder Include="PyDAQmx\example" />
+    <Folder Include="PyDAQmx\constants\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\2.7" />

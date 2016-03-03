@@ -32,6 +32,7 @@ define = re.compile(r'\#define\s+(\S+)\s+(".*"|\S+)')
 # List containing all the name of the constant
 constant_list = []
 
+
 for line in include_file:
     m = define.match(line)
     if m:
@@ -47,5 +48,3 @@ for line in include_file:
             constant_list.append(name)
 
 include_file.close()
-
-print("hey")
