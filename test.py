@@ -1,5 +1,5 @@
 
-import PyDAQmx.constants
+from PyDAQmx.constants import *
 
 """
 try:  
