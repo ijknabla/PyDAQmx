@@ -1,4 +1,4 @@
-from . import NI_AST
+ï»¿from . import NI_AST
 import pyparsing as pp
 
 import functools, operator
@@ -21,7 +21,6 @@ class KeywordSlot:
             self.allkeyword.add(args[0])
             __init__(*args, **kwrds)
         cls.__init__ = wrapped
-        print(cls.__init__)
 
 KEYWORDSLOT = KeywordSlot()
 KEYWORDSLOT(pp.CaselessKeyword)
@@ -30,7 +29,7 @@ KEYWORDSLOT(pp.Keyword)
 def getallkeyword(keywordslot = KEYWORDSLOT):
     return functools.reduce(operator.or_, keywordslot.allkeyword)
 
-#C‚¨‚æ‚ÑC++ƒXƒ^ƒCƒ‹‚ÌƒRƒƒ“ƒgƒAƒEƒg‚Ì’è‹`
+#CÂ‚Â¨Â‚Ã¦Â‚Ã‘C++ÂƒXÂƒ^ÂƒCÂƒÂ‹Â‚ÃŒÂƒRÂƒÂÂƒÂ“ÂƒgÂƒAÂƒEÂƒgÂ‚ÃŒÂ’Ã¨Â‹`
 C_comment = pp.QuotedString(
     quoteChar       = "/*",
     endQuoteChar    = "*/",
@@ -44,7 +43,7 @@ Cpp_comment = \
 
 comment = C_comment | Cpp_comment
 
-#•¡”‚ÌƒRƒƒ“ƒgƒAƒEƒg
+#Â•Â¡ÂÂ”Â‚ÃŒÂƒRÂƒÂÂƒÂ“ÂƒgÂƒAÂƒEÂƒg
 C_comments      = pp.ZeroOrMore(C_comment)
 Cpp_comments    = pp.ZeroOrMore(Cpp_comment)
 comments        = pp.ZeroOrMore(comment)
@@ -67,9 +66,12 @@ ifdefMacroStatement = (
     )
 
 ifndefMacroStatement = (
-    ifndefMacro + macroLabel
-    + code
-    + endifMacro
+    pp.Suppress(ifndefMacro) + macroLabel
+    + pp.Group(code)
+    + pp.Suppress(endifMacro)
+    )
+ifndefMacroStatement.setParseAction(
+    NI_AST.ifndefMacroStatement
     )
 
 ifMacroStatement = (

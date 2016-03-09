@@ -3,15 +3,7 @@
 Read the NIDAQmx.h file and "execute" the #define command
 """
 
-from . import NI_parser
-from .. import DAQmxConfig
 
-with open(DAQmxConfig.dot_h_file) as file:
-    txt = file.read()
-split_txt = txt.split("\n")
-
-#result = NI_parser.NI_header.parseString(txt)
-#print(result)
 
 """
 class Preamble(pyparsing.Group):pass

@@ -1,42 +1,60 @@
-class ASTnode:
-    _fields = ("value", )
-    def __init__(self, *args, **kwrds):
-        for key in kwrds.keys():
-            if key not in self._fields:
-                raise NameError(
-                    "invalid argument {key} : not in {self._fields}"\
-                        .format(**vars())
-                    )
-        if len(args) + len(kwrds) != len(self._fields):
+import itertools
+
+class ASTnode_base:
+    _fields = NotImplemented
+    def __init__(self, tokens):
+        print(self.__class__)
+        if not isinstance(tokens, list):
+            tokens = tokens.asList()
+        if len(tokens) == len(self._fields):
+            for field, token in zip(self._fields, tokens):
+                setattr(self, field, token)
+        else:
             raise ValueError(
-                "argumente exceed expect {} got {args} and {kwrds}"\
-                    .format(
-                        len(self._fields),
-                        **vars())
+                "{}\n{}\n{}".format(
+                    self.__class__,
+                    len(tokens),
+                    self._fields
+                    )
                 )
         
-        args_iter = iter(args)
-        for attr in self._fields:
-            try:
-                setattr(self, attr, kwrds[attr])
-            except KeyError:
-                setattr(self, attr, next(args_iter))
+
+    def keys(self):
+        return self._fields
+
+    def values(self):
+        for field in self.keys():
+            yield getattr(self, field)
+
+    def items(self):
+        return zip(self.keys(), self.values())
+
+class reprA:
+    tab = " "
 
     def __repr__(self):
-        return "{self.__class__.__name__}({})"\
-            .format(
-                ", ".join("{} = {}".format(
-                    field, getattr(self, field)) for field in self._fields
-                          ),
-                **vars()
+        return "\n".join(
+            itertools.chain(
+                ["{self.__class__.__name__} (".format(**vars())],
+                map(
+                    lambda txt : self.tab + txt,
+                    (
+                        ",\n".join(
+                            "{} : {}".format(*field_value)
+                            for field_value in self.items()
+                            )
+                        ).split("\n")
+                ),
+                [")"]
                 )
+            )
 
-class Header(ASTnode):
-    _fields = ("preamble", "content")
+class ASTnode(reprA, ASTnode_base):pass
 
-    @classmethod
-    def handler(cls, tokens):
-        return cls(*tokens.asList())
+class ifndefMacroStatement(ASTnode):
+    _fields = (
+        "macroLabel", "code"
+        )
 
 class Preamble(ASTnode):
     @classmethod
