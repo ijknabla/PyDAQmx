@@ -1,13 +1,5 @@
 
-import PyDAQmx.DAQmxConfig as DAQmxConfig
-import PyDAQmx.constants.NI_parser as NI_parser
-
-with open(DAQmxConfig.dot_h_file) as file:
-    txt = file.read()
-split_txt = txt.split("\n")
-
-result = NI_parser.NI_header.parseString(txt)
-print(result)
+from PyDAQmx.HeaderParser.pattern import *
 
 """
 try:  

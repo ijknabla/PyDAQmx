@@ -3,7 +3,6 @@ import itertools
 class ASTnode_base:
     _fields = NotImplemented
     def __init__(self, tokens):
-        print(self.__class__)
         if not isinstance(tokens, list):
             tokens = tokens.asList()
         if len(tokens) == len(self._fields):
@@ -11,25 +10,22 @@ class ASTnode_base:
                 setattr(self, field, token)
         else:
             raise ValueError(
-                "{}\n{}\n{}".format(
-                    self.__class__,
-                    len(tokens),
-                    self._fields
+                "{self.__class__} expect {self._fields}\n"
+                "got {tokens}".format(
+                    **vars()
                     )
                 )
         
 
     def keys(self):
         return self._fields
-
     def values(self):
         for field in self.keys():
             yield getattr(self, field)
-
     def items(self):
         return zip(self.keys(), self.values())
 
-class reprA:
+class tree_repr:
     tab = " "
 
     def __repr__(self):
@@ -49,7 +45,13 @@ class reprA:
                 )
             )
 
-class ASTnode(reprA, ASTnode_base):pass
+class ASTnode(tree_repr, ASTnode_base):pass
+
+class NIheader(ASTnode):
+    _fields = (
+        "preamble",
+        "body"
+        )
 
 class ifndefMacroStatement(ASTnode):
     _fields = (

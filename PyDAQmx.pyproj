@@ -27,13 +27,10 @@
     <Compile Include="PyDAQmxTest\test_Task.py" />
     <Compile Include="PyDAQmxTest\test_variadic.py" />
     <Compile Include="PyDAQmxTest\__init__.py" />
-    <Compile Include="PyDAQmx\constants\C_parser.py">
+    <Compile Include="PyDAQmx\HeaderParser\C_parser.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\constants\NI_parser.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PyDAQmx\constants\NI_AST.py">
+    <Compile Include="PyDAQmx\HeaderParser\AST.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
@@ -51,6 +48,12 @@
     <Compile Include="PyDAQmx\example\MultiChannelAnalogInput.py" />
     <Compile Include="PyDAQmx\example\__init__.py" />
     <Compile Include="PyDAQmx\constants\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\HeaderParser\pattern.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\HeaderParser\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
@@ -76,6 +79,7 @@
     <Folder Include="PyDAQmxTest" />
     <Folder Include="PyDAQmx\example" />
     <Folder Include="PyDAQmx\constants\" />
+    <Folder Include="PyDAQmx\HeaderParser\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\3.4" />
