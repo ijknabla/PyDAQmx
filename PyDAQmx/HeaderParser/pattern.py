@@ -7,6 +7,10 @@ def setaction(name):
     target = globals()[name]
     target.setParseAction(getattr(AST, name))
 
+def setname(name):
+    target = globals()[name]
+    target.setName(name)
+
 class KeywordSlot:
     def __init__(self):
         self.allkeyword = set()
@@ -40,6 +44,9 @@ word = pp.Forward()
 preambleStatement   = pp.Forward()
 bodyStatement       = pp.Forward()
 
+setname("preambleStatement")
+setname("bodyStatement")
+
 NIheader = (
     pp.Group(preambleStatement)
     + pp.Group(bodyStatement)
@@ -69,13 +76,7 @@ word << (
 
 CppComment = pp.Literal("//") + pp.OneOrMore(word) + pp.LineEnd()
 
-bodyStatement = pp.Forward()
-"""
-bodyStatement << pp.OneOrMore(
-    CppComment
-    | word
-    )
-"""
+
 bodyStatement << (
     (pp.White() + bodyStatement)
     | pp.OneOrMore(
@@ -83,77 +84,3 @@ bodyStatement << (
         )
     )
 
-"""
-#C¨æÑC++X^CÌRgAEgÌè`
-
-Cpp_comment = \
-            pp.Suppress("//")\
-            + pp.Regex(".*")\
-            + pp.Suppress(pp.LineEnd())
-
-comment = C_comment | Cpp_comment
-
-#¡ÌRgAEg
-C_comments      = pp.ZeroOrMore(C_comment)
-Cpp_comments    = pp.ZeroOrMore(Cpp_comment)
-comments        = pp.ZeroOrMore(comment)
-
-code = pp.Forward()
-macroLabel = pp.Word(pp.alphas + "_")
-
-endifMacro  = pp.CaselessKeyword("#endif")
-
-ifdefMacro  = pp.CaselessKeyword("#ifdef")
-ifndefMacro = pp.CaselessKeyword("#ifndef")
-ifMacro     = pp.CaselessKeyword("#if")
-#defineMacro = pp.CaselessKeyword("#define")
-#pragmaMacro = pp.CaselessKeyword("#pragma")
-
-ifdefMacroStatement = (
-    ifdefMacro + macroLabel
-    + code
-    + endifMacro
-    )
-
-ifndefMacroStatement = (
-    pp.Suppress(ifndefMacro) + macroLabel
-    + pp.Group(code)
-    + pp.Suppress(endifMacro)
-    )
-#ifndefMacroStatement.setParseAction(NI_AST.ifndefMacroStatement)
-
-ifMacroStatement = (
-    ifMacro + code
-    + code
-    + endifMacro
-    )
-
-defineMacroStatement = (
-    defineMacro + macroLabel + pp.Optional(code)
-    )
-
-pragmaMacroStatement = (
-    pragmaMacro + macroLabel
-    )
-
-
-macroStatement = (
-    ifdefMacroStatement
-    | ifndefMacroStatement
-    | ifMacroStatement
-#    | defineMacroStatement
-#    | pragmaMacroStatement
-    )
-
-
-
-word << (
-    ~getallkeyword() + pp.Word('#!"&\'()*+,-./:;<=[\\]^_{|}' + pp.alphanums)
-
-
-code << pp.ZeroOrMore(macroStatement | word)
-
-preamble = C_comments
-
-NI_header = preamble + code
-"""
