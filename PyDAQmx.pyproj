@@ -27,9 +27,6 @@
     <Compile Include="PyDAQmxTest\test_Task.py" />
     <Compile Include="PyDAQmxTest\test_variadic.py" />
     <Compile Include="PyDAQmxTest\__init__.py" />
-    <Compile Include="PyDAQmx\HeaderParser\C_parser.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PyDAQmx\HeaderParser\AST.py">
       <SubType>Code</SubType>
     </Compile>

@@ -47,6 +47,18 @@ class tree_repr:
 
 class ASTnode(tree_repr, ASTnode_base):pass
 
+class ValDefineMacroStatement(ASTnode):
+    _fields = (
+        "title",
+        "content"
+        )
+
+class ValDefineMacroTitle(ASTnode):
+    pass
+
+class ValDefineMacroContent(ASTnode):
+    pass
+
 class NIheader(ASTnode):
     _fields = (
         "preamble",

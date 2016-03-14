@@ -4,10 +4,12 @@ import pyparsing as pp
 import functools, operator
 
 def setaction(name):
+    if not isinstance(name, str):raise TypeError
     target = globals()[name]
     target.setParseAction(getattr(AST, name))
 
 def setname(name):
+    if not isinstance(name, str):raise TypeError
     target = globals()[name]
     target.setName(name)
 
@@ -37,9 +39,11 @@ class KeywordSlot:
 KEYWORDSLOT = KeywordSlot()
 CaselessKeyword =   KEYWORDSLOT(pp.CaselessKeyword)
 Keyword =           KEYWORDSLOT(pp.Keyword)
-Keyword("hoge")
 
 word = pp.Forward()
+identifier = pp.Forward()
+setname("word")
+setname("identifier")
 
 preambleStatement   = pp.Forward()
 bodyStatement       = pp.Forward()
@@ -55,32 +59,76 @@ NIheader = (
 setaction("NIheader")
 
 #preamble 序文の文法定義
-C_comment = pp.QuotedString(
-    quoteChar       = "/*",
-    endQuoteChar    = "*/",
-    multiline       = True
-    )
+preambleContent = pp.cStyleComment.copy()
 
 preambleStatement << (
     pp.OneOrMore(
-        C_comment
+        preambleContent
         )
     )
 
+expression = pp.Forward()
+expression = (
+    word
+    )
+setname("expression")
 
-#body 本体の文法定義
+#マクロ関連の文法定義
+macroLabel = identifier
+defineMacro = Keyword("#define")
+
+defineMacroStatement_nonval = (
+    pp.Suppress(defineMacro)
+    + macroLabel
+    )
+
+defineMacroStatement_val = (
+    pp.Suppress(defineMacro)
+    + macroLabel
+    + expression
+    )
+
+
+defineMacroStatement = (
+    defineMacroStatement_nonval
+    | defineMacroStatement_val
+    )
+
+#DAQmx_Val_
+ValDefineMacroLabel = pp.Combine(
+    pp.Literal("DAQmx_Val_").suppress()
+    + identifier
+    )
+setname("ValDefineMacroLabel")
+
+ValDefineMacroTitle = pp.cppStyleComment.copy()
+setname("ValDefineMacroTitle")
+setaction("ValDefineMacroTitle")
+
+ValDefineMacroContent = (
+    pp.Suppress(defineMacro)
+    + ValDefineMacroLabel
+    + expression
+    + pp.cppStyleComment
+    )
+
+ValDefineMacroStatement = (
+    pp.Group(pp.OneOrMore(ValDefineMacroTitle))
+    + pp.Group(pp.OneOrMore(ValDefineMacroContent))
+    )
+setaction("ValDefineMacroStatement")
+
+bodyStatement << pp.OneOrMore(
+    ValDefineMacroStatement | word.suppress()
+    )
+
+#最後に定義しないといけないやつら
 word << (
+#    ~KEYWORDSLOT.getallkeyword()
+    pp.Regex(r"\S+")
+    )
+
+identifier << (
     ~KEYWORDSLOT.getallkeyword()
-    + pp.Regex(r"\S+")
+    + pp.Word(pp.alphas + "_", pp.alphanums + "_")
     )
-
-CppComment = pp.Literal("//") + pp.OneOrMore(word) + pp.LineEnd()
-
-
-bodyStatement << (
-    (pp.White() + bodyStatement)
-    | pp.OneOrMore(
-        word
-        )
-    )
-
