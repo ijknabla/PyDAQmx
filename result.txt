@@ -1,0 +1,4571 @@
+NIheader(
+	preamble : preambleStatements[
+		'/*============================================================================*/'
+		'/*                 National Instruments / Data Acquisition                    */'
+		'/*----------------------------------------------------------------------------*/'
+		'/*    Copyright (c) National Instruments 2003-2013.  All Rights Reserved.     */'
+		'/*----------------------------------------------------------------------------*/'
+		'/*                                                                            */'
+		'/* Title:       NIDAQmx.h                                                     */'
+		'/* Purpose:     Include file for NI-DAQmx  library support.                */'
+		'/*                                                                            */'
+		'/*============================================================================*/'
+	),
+	body : bodyStatements[
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'/******************************************************************************\n *** NI-DAQmx Values **********************************************************\n ******************************************************************************/'
+				'/******************************************************/'
+				'/***    Non-Attribute Function Parameter Values     ***/'
+				'/******************************************************/'
+				'//*** Values for the Mode parameter of DAQmxTaskControl ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Task_Start,
+					value : 0,
+					comment : // Start
+				)
+				ValDefineMacroContent(
+					label : Task_Stop,
+					value : 1,
+					comment : // Stop
+				)
+				ValDefineMacroContent(
+					label : Task_Verify,
+					value : 2,
+					comment : // Verify
+				)
+				ValDefineMacroContent(
+					label : Task_Commit,
+					value : 3,
+					comment : // Commit
+				)
+				ValDefineMacroContent(
+					label : Task_Reserve,
+					value : 4,
+					comment : // Reserve
+				)
+				ValDefineMacroContent(
+					label : Task_Unreserve,
+					value : 5,
+					comment : // Unreserve
+				)
+				ValDefineMacroContent(
+					label : Task_Abort,
+					value : 6,
+					comment : // Abort
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Options parameter of the event registration functions'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SynchronousEventCallbacks,
+					value : (1<<0),
+					comment : // Synchronous callbacks
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the everyNsamplesEventType parameter of DAQmxRegisterEveryNSamplesEvent ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Acquired_Into_Buffer,
+					value : 1,
+					comment : // Acquired Into Buffer
+				)
+				ValDefineMacroContent(
+					label : Transferred_From_Buffer,
+					value : 2,
+					comment : // Transferred From Buffer
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Action parameter of DAQmxControlWatchdogTask ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ResetTimer,
+					value : 0,
+					comment : // Reset Timer
+				)
+				ValDefineMacroContent(
+					label : ClearExpiration,
+					value : 1,
+					comment : // Clear Expiration
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Line Grouping parameter of DAQmxCreateDIChan and DAQmxCreateDOChan ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ChanPerLine,
+					value : 0,
+					comment : // One Channel For Each Line
+				)
+				ValDefineMacroContent(
+					label : ChanForAllLines,
+					value : 1,
+					comment : // One Channel For All Lines
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Fill Mode parameter of DAQmxReadAnalogF64, DAQmxReadBinaryI16, DAQmxReadBinaryU16, DAQmxReadBinaryI32, DAQmxReadBinaryU32,'
+				'//    DAQmxReadDigitalU8, DAQmxReadDigitalU32, DAQmxReadDigitalLines ***'
+				'//*** Values for the Data Layout parameter of DAQmxWriteAnalogF64, DAQmxWriteBinaryI16, DAQmxWriteDigitalU8, DAQmxWriteDigitalU32, DAQmxWriteDigitalLines ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : GroupByChannel,
+					value : 0,
+					comment : // Group by Channel
+				)
+				ValDefineMacroContent(
+					label : GroupByScanNumber,
+					value : 1,
+					comment : // Group by Scan Number
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Signal Modifiers parameter of DAQmxConnectTerms ***/'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DoNotInvertPolarity,
+					value : 0,
+					comment : // Do not invert polarity
+				)
+				ValDefineMacroContent(
+					label : InvertPolarity,
+					value : 1,
+					comment : // Invert polarity
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Action paramter of DAQmxCloseExtCal ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Action_Commit,
+					value : 0,
+					comment : // Commit
+				)
+				ValDefineMacroContent(
+					label : Action_Cancel,
+					value : 1,
+					comment : // Cancel
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Trigger ID parameter of DAQmxSendSoftwareTrigger ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AdvanceTrigger,
+					value : 12488,
+					comment : // Advance Trigger
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the ActiveEdge parameter of DAQmxCfgSampClkTiming and DAQmxCfgPipelinedSampClkTiming ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Rising,
+					value : 10280,
+					comment : // Rising
+				)
+				ValDefineMacroContent(
+					label : Falling,
+					value : 10171,
+					comment : // Falling
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set SwitchPathType ***'
+				'//*** Value set for the output Path Status parameter of DAQmxSwitchFindPath ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : PathStatus_Available,
+					value : 10431,
+					comment : // Path Available
+				)
+				ValDefineMacroContent(
+					label : PathStatus_AlreadyExists,
+					value : 10432,
+					comment : // Path Already Exists
+				)
+				ValDefineMacroContent(
+					label : PathStatus_Unsupported,
+					value : 10433,
+					comment : // Path Unsupported
+				)
+				ValDefineMacroContent(
+					label : PathStatus_ChannelInUse,
+					value : 10434,
+					comment : // Channel In Use
+				)
+				ValDefineMacroContent(
+					label : PathStatus_SourceChannelConflict,
+					value : 10435,
+					comment : // Channel Source Conflict
+				)
+				ValDefineMacroContent(
+					label : PathStatus_ChannelReservedForRouting,
+					value : 10436,
+					comment : // Channel Reserved for Routing
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the Units parameter of DAQmxCreateAIThrmcplChan, DAQmxCreateAIRTDChan, DAQmxCreateAIThrmstrChanIex, DAQmxCreateAIThrmstrChanVex and DAQmxCreateAITempBuiltInSensorChan ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DegC,
+					value : 10143,
+					comment : // Deg C
+				)
+				ValDefineMacroContent(
+					label : DegF,
+					value : 10144,
+					comment : // Deg F
+				)
+				ValDefineMacroContent(
+					label : Kelvins,
+					value : 10325,
+					comment : // Kelvins
+				)
+				ValDefineMacroContent(
+					label : DegR,
+					value : 10145,
+					comment : // Deg R
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the state parameter of DAQmxSetDigitalPowerUpStates ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : High,
+					value : 10192,
+					comment : // High
+				)
+				ValDefineMacroContent(
+					label : Low,
+					value : 10214,
+					comment : // Low
+				)
+				ValDefineMacroContent(
+					label : Tristate,
+					value : 10310,
+					comment : // Tristate
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the state parameter of DAQmxSetDigitalPullUpPullDownStates ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : PullUp,
+					value : 15950,
+					comment : // Pull Up
+				)
+				ValDefineMacroContent(
+					label : PullDown,
+					value : 15951,
+					comment : // Pull Down
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the channelType parameter of DAQmxSetAnalogPowerUpStates & DAQmxGetAnalogPowerUpStates ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ChannelVoltage,
+					value : 0,
+					comment : // Voltage Channel
+				)
+				ValDefineMacroContent(
+					label : ChannelCurrent,
+					value : 1,
+					comment : // Current Channel
+				)
+				ValDefineMacroContent(
+					label : ChannelHighImpedance,
+					value : 2,
+					comment : // High-Impedance Channel
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set RelayPos ***'
+				'//*** Value set for the state parameter of DAQmxSwitchGetSingleRelayPos and DAQmxSwitchGetMultiRelayPos ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Open,
+					value : 10437,
+					comment : // Open
+				)
+				ValDefineMacroContent(
+					label : Closed,
+					value : 10438,
+					comment : // Closed
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for the inputCalSource parameter of DAQmxAdjust1540Cal ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Loopback0,
+					value : 0,
+					comment : // Loopback 0 degree shift
+				)
+				ValDefineMacroContent(
+					label : Loopback180,
+					value : 1,
+					comment : // Loopback 180 degree shift
+				)
+				ValDefineMacroContent(
+					label : Ground,
+					value : 2,
+					comment : // Ground
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set for output type for 4322 Calibration functions ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Voltage,
+					value : 10322,
+					comment : // Voltage
+				)
+				ValDefineMacroContent(
+					label : Current,
+					value : 10134,
+					comment : // Current
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value for the Terminal Config parameter of DAQmxCreateAIVoltageChan, DAQmxCreateAICurrentChan and DAQmxCreateAIVoltageChanWithExcit ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Cfg_Default,
+					value : -1,
+					comment : // Default
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value for the Shunt Resistor Location parameter of DAQmxCreateAICurrentChan ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Default,
+					value : -1,
+					comment : // Default
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value for the Timeout parameter of DAQmxWaitUntilTaskDone'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : WaitInfinitely,
+					value : -1.0,
+					comment : //*** Value for the Number of Samples per Channel parameter of DAQmxReadAnalogF64, DAQmxReadBinaryI16, DAQmxReadBinaryU16,
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//    DAQmxReadBinaryI32, DAQmxReadBinaryU32, DAQmxReadDigitalU8, DAQmxReadDigitalU32,'
+				'//    DAQmxReadDigitalLines, DAQmxReadCounterF64, DAQmxReadCounterU32 and DAQmxReadRaw ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Auto,
+					value : -1,
+					comment : // Value set for the Options parameter of DAQmxSaveTask, DAQmxSaveGlobalChan and DAQmxSaveScale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Trigger Usage parameter - set of trigger types a device may support'
+				'//*** Values for TriggerUsageTypeBits'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_Advance,
+					value : (1<<0),
+					comment : // Device supports advance triggers
+				)
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_Pause,
+					value : (1<<1),
+					comment : // Device supports pause triggers
+				)
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_Reference,
+					value : (1<<2),
+					comment : // Device supports reference triggers
+				)
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_Start,
+					value : (1<<3),
+					comment : // Device supports start triggers
+				)
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_Handshake,
+					value : (1<<4),
+					comment : // Device supports handshake triggers
+				)
+				ValDefineMacroContent(
+					label : Bit_TriggerUsageTypes_ArmStart,
+					value : (1<<5),
+					comment : // Device supports arm start triggers
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for the Coupling Types parameter - set of coupling types a device may support'
+				'//*** Values for CouplingTypeBits'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_AC,
+					value : (1<<0),
+					comment : // Device supports AC coupling
+				)
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_DC,
+					value : (1<<1),
+					comment : // Device supports DC coupling
+				)
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_Ground,
+					value : (1<<2),
+					comment : // Device supports ground coupling
+				)
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_HFReject,
+					value : (1<<3),
+					comment : // Device supports High Frequency Reject coupling
+				)
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_LFReject,
+					value : (1<<4),
+					comment : // Device supports Low Frequency Reject coupling
+				)
+				ValDefineMacroContent(
+					label : Bit_CouplingTypes_NoiseReject,
+					value : (1<<5),
+					comment : // Device supports Noise Reject coupling
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_PhysicalChan_AI_TermCfgs and DAQmx_PhysicalChan_AO_TermCfgs'
+				'//*** Value set TerminalConfigurationBits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Bit_TermCfg_RSE,
+					value : (1<<0),
+					comment : // RSE terminal configuration
+				)
+				ValDefineMacroContent(
+					label : Bit_TermCfg_NRSE,
+					value : (1<<1),
+					comment : // NRSE terminal configuration
+				)
+				ValDefineMacroContent(
+					label : Bit_TermCfg_Diff,
+					value : (1<<2),
+					comment : // Differential terminal configuration
+				)
+				ValDefineMacroContent(
+					label : Bit_TermCfg_PseudoDIFF,
+					value : (1<<3),
+					comment : // Pseudodifferential terminal configuration
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 5-Wire'
+				'//*** Values for DAQmx_AI_ADCTimingMode ***'
+				'//*** Value set ADCTimingMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : HighResolution,
+					value : 10195,
+					comment : // High Resolution
+				)
+				ValDefineMacroContent(
+					label : HighSpeed,
+					value : 14712,
+					comment : // High Speed
+				)
+				ValDefineMacroContent(
+					label : Best50HzRejection,
+					value : 14713,
+					comment : // Best 50 Hz Rejection
+				)
+				ValDefineMacroContent(
+					label : Best60HzRejection,
+					value : 14714,
+					comment : // Best 60 Hz Rejection
+				)
+				ValDefineMacroContent(
+					label : Custom,
+					value : 10137,
+					comment : // Custom
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_MeasType ***'
+				'//*** Values for DAQmx_Dev_AI_SupportedMeasTypes ***'
+				'//*** Values for DAQmx_PhysicalChan_AI_SupportedMeasTypes ***'
+				'//*** Value set AIMeasurementType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Voltage,
+					value : 10322,
+					comment : // Voltage
+				)
+				ValDefineMacroContent(
+					label : VoltageRMS,
+					value : 10350,
+					comment : // Voltage RMS
+				)
+				ValDefineMacroContent(
+					label : Current,
+					value : 10134,
+					comment : // Current
+				)
+				ValDefineMacroContent(
+					label : CurrentRMS,
+					value : 10351,
+					comment : // Current RMS
+				)
+				ValDefineMacroContent(
+					label : Voltage_CustomWithExcitation,
+					value : 10323,
+					comment : // More:Voltage:Custom with Excitation
+				)
+				ValDefineMacroContent(
+					label : Bridge,
+					value : 15908,
+					comment : // More:Bridge (V/V)
+				)
+				ValDefineMacroContent(
+					label : Freq_Voltage,
+					value : 10181,
+					comment : // Frequency
+				)
+				ValDefineMacroContent(
+					label : Resistance,
+					value : 10278,
+					comment : // Resistance
+				)
+				ValDefineMacroContent(
+					label : Temp_TC,
+					value : 10303,
+					comment : // Temperature:Thermocouple
+				)
+				ValDefineMacroContent(
+					label : Temp_Thrmstr,
+					value : 10302,
+					comment : // Temperature:Thermistor
+				)
+				ValDefineMacroContent(
+					label : Temp_RTD,
+					value : 10301,
+					comment : // Temperature:RTD
+				)
+				ValDefineMacroContent(
+					label : Temp_BuiltInSensor,
+					value : 10311,
+					comment : // Temperature:Built-in Sensor
+				)
+				ValDefineMacroContent(
+					label : Strain_Gage,
+					value : 10300,
+					comment : // Strain Gage
+				)
+				ValDefineMacroContent(
+					label : Rosette_Strain_Gage,
+					value : 15980,
+					comment : // Rosette Strain Gage
+				)
+				ValDefineMacroContent(
+					label : Position_LVDT,
+					value : 10352,
+					comment : // Position:LVDT
+				)
+				ValDefineMacroContent(
+					label : Position_RVDT,
+					value : 10353,
+					comment : // Position:RVDT
+				)
+				ValDefineMacroContent(
+					label : Position_EddyCurrentProximityProbe,
+					value : 14835,
+					comment : // Position:Eddy Current Proximity Probe
+				)
+				ValDefineMacroContent(
+					label : Accelerometer,
+					value : 10356,
+					comment : // Accelerometer
+				)
+				ValDefineMacroContent(
+					label : Velocity_IEPESensor,
+					value : 15966,
+					comment : // Velocity:IEPE Sensor
+				)
+				ValDefineMacroContent(
+					label : Force_Bridge,
+					value : 15899,
+					comment : // Force:Bridge
+				)
+				ValDefineMacroContent(
+					label : Force_IEPESensor,
+					value : 15895,
+					comment : // Force:IEPE Sensor
+				)
+				ValDefineMacroContent(
+					label : Pressure_Bridge,
+					value : 15902,
+					comment : // Pressure:Bridge
+				)
+				ValDefineMacroContent(
+					label : SoundPressure_Microphone,
+					value : 10354,
+					comment : // Sound Pressure:Microphone
+				)
+				ValDefineMacroContent(
+					label : Torque_Bridge,
+					value : 15905,
+					comment : // Torque:Bridge
+				)
+				ValDefineMacroContent(
+					label : TEDS_Sensor,
+					value : 12531,
+					comment : // TEDS Sensor
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_IdleOutputBehavior ***'
+				'//*** Value set AOIdleOutputBehavior ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ZeroVolts,
+					value : 12526,
+					comment : // Zero Volts
+				)
+				ValDefineMacroContent(
+					label : HighImpedance,
+					value : 12527,
+					comment : // High-Impedance
+				)
+				ValDefineMacroContent(
+					label : MaintainExistingValue,
+					value : 12528,
+					comment : // Maintain Existing Value
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_OutputType ***'
+				'//*** Values for DAQmx_Dev_AO_SupportedOutputTypes ***'
+				'//*** Values for DAQmx_PhysicalChan_AO_SupportedOutputTypes ***'
+				'//*** Value set AOOutputChannelType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Voltage,
+					value : 10322,
+					comment : // Voltage
+				)
+				ValDefineMacroContent(
+					label : Current,
+					value : 10134,
+					comment : // Current
+				)
+				ValDefineMacroContent(
+					label : FuncGen,
+					value : 14750,
+					comment : // Function Generation
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Accel_SensitivityUnits ***'
+				'//*** Value set AccelSensitivityUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : mVoltsPerG,
+					value : 12509,
+					comment : // mVolts/g
+				)
+				ValDefineMacroContent(
+					label : VoltsPerG,
+					value : 12510,
+					comment : // Volts/g
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Accel_Units ***'
+				'//*** Value set AccelUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AccelUnit_g,
+					value : 10186,
+					comment : // g
+				)
+				ValDefineMacroContent(
+					label : MetersPerSecondSquared,
+					value : 12470,
+					comment : // m/s^2
+				)
+				ValDefineMacroContent(
+					label : InchesPerSecondSquared,
+					value : 12471,
+					comment : // in/s^2
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Dev_AI_SampModes ***'
+				'//*** Values for DAQmx_Dev_AO_SampModes ***'
+				'//*** Values for DAQmx_Dev_CI_SampModes ***'
+				'//*** Values for DAQmx_Dev_CO_SampModes ***'
+				'//*** Values for DAQmx_SampQuant_SampMode ***'
+				'//*** Values for DAQmx_PhysicalChan_DI_SampModes ***'
+				'//*** Values for DAQmx_PhysicalChan_DO_SampModes ***'
+				'//*** Value set AcquisitionType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FiniteSamps,
+					value : 10178,
+					comment : // Finite Samples
+				)
+				ValDefineMacroContent(
+					label : ContSamps,
+					value : 10123,
+					comment : // Continuous Samples
+				)
+				ValDefineMacroContent(
+					label : HWTimedSinglePoint,
+					value : 12522,
+					comment : // Hardware Timed Single Point
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AnlgLvl_PauseTrig_When ***'
+				'//*** Value set ActiveLevel ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AboveLvl,
+					value : 10093,
+					comment : // Above Level
+				)
+				ValDefineMacroContent(
+					label : BelowLvl,
+					value : 10107,
+					comment : // Below Level
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RVDT_Units ***'
+				'//*** Value set AngleUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Degrees,
+					value : 10146,
+					comment : // Degrees
+				)
+				ValDefineMacroContent(
+					label : Radians,
+					value : 10273,
+					comment : // Radians
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_AngEncoder_Units ***'
+				'//*** Value set AngleUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Degrees,
+					value : 10146,
+					comment : // Degrees
+				)
+				ValDefineMacroContent(
+					label : Radians,
+					value : 10273,
+					comment : // Radians
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_AutoZeroMode ***'
+				'//*** Value set AutoZeroType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+				ValDefineMacroContent(
+					label : Once,
+					value : 10244,
+					comment : // Once
+				)
+				ValDefineMacroContent(
+					label : EverySample,
+					value : 10164,
+					comment : // Every Sample
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SwitchScan_BreakMode ***'
+				'//*** Value set BreakMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : NoAction,
+					value : 10227,
+					comment : // No Action
+				)
+				ValDefineMacroContent(
+					label : BreakBeforeMake,
+					value : 10110,
+					comment : // Break Before Make
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_Cfg ***'
+				'//*** Value set BridgeConfiguration1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FullBridge,
+					value : 10182,
+					comment : // Full Bridge
+				)
+				ValDefineMacroContent(
+					label : HalfBridge,
+					value : 10187,
+					comment : // Half Bridge
+				)
+				ValDefineMacroContent(
+					label : QuarterBridge,
+					value : 10270,
+					comment : // Quarter Bridge
+				)
+				ValDefineMacroContent(
+					label : NoBridge,
+					value : 10228,
+					comment : // No Bridge
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_ElectricalUnits ***'
+				'//*** Value set BridgeElectricalUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : VoltsPerVolt,
+					value : 15896,
+					comment : // Volts/Volt
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerVolt,
+					value : 15897,
+					comment : // mVolts/Volt
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_PhysicalUnits ***'
+				'//*** Value set BridgePhysicalUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Newtons,
+					value : 15875,
+					comment : // Newtons
+				)
+				ValDefineMacroContent(
+					label : Pounds,
+					value : 15876,
+					comment : // Pounds
+				)
+				ValDefineMacroContent(
+					label : KilogramForce,
+					value : 15877,
+					comment : // kgf
+				)
+				ValDefineMacroContent(
+					label : Pascals,
+					value : 10081,
+					comment : // Pascals
+				)
+				ValDefineMacroContent(
+					label : PoundsPerSquareInch,
+					value : 15879,
+					comment : // psi
+				)
+				ValDefineMacroContent(
+					label : Bar,
+					value : 15880,
+					comment : // bar
+				)
+				ValDefineMacroContent(
+					label : NewtonMeters,
+					value : 15881,
+					comment : // Nm
+				)
+				ValDefineMacroContent(
+					label : InchOunces,
+					value : 15882,
+					comment : // oz-in
+				)
+				ValDefineMacroContent(
+					label : InchPounds,
+					value : 15883,
+					comment : // lb-in
+				)
+				ValDefineMacroContent(
+					label : FootPounds,
+					value : 15884,
+					comment : // lb-ft
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_Units ***'
+				'//*** Value set BridgeUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : VoltsPerVolt,
+					value : 15896,
+					comment : // Volts/Volt
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerVolt,
+					value : 15897,
+					comment : // mVolts/Volt
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Dev_BusType ***'
+				'//*** Value set BusType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : PCI,
+					value : 12582,
+					comment : // PCI
+				)
+				ValDefineMacroContent(
+					label : PCIe,
+					value : 13612,
+					comment : // PCIe
+				)
+				ValDefineMacroContent(
+					label : PXI,
+					value : 12583,
+					comment : // PXI
+				)
+				ValDefineMacroContent(
+					label : PXIe,
+					value : 14706,
+					comment : // PXIe
+				)
+				ValDefineMacroContent(
+					label : SCXI,
+					value : 12584,
+					comment : // SCXI
+				)
+				ValDefineMacroContent(
+					label : SCC,
+					value : 14707,
+					comment : // SCC
+				)
+				ValDefineMacroContent(
+					label : PCCard,
+					value : 12585,
+					comment : // PCCard
+				)
+				ValDefineMacroContent(
+					label : USB,
+					value : 12586,
+					comment : // USB
+				)
+				ValDefineMacroContent(
+					label : CompactDAQ,
+					value : 14637,
+					comment : // CompactDAQ
+				)
+				ValDefineMacroContent(
+					label : TCPIP,
+					value : 14828,
+					comment : // TCP/IP
+				)
+				ValDefineMacroContent(
+					label : Unknown,
+					value : 12588,
+					comment : // Unknown
+				)
+				ValDefineMacroContent(
+					label : SwitchBlock,
+					value : 15870,
+					comment : // SwitchBlock
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_MeasType ***'
+				'//*** Values for DAQmx_Dev_CI_SupportedMeasTypes ***'
+				'//*** Values for DAQmx_PhysicalChan_CI_SupportedMeasTypes ***'
+				'//*** Value set CIMeasurementType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : CountEdges,
+					value : 10125,
+					comment : // Count Edges
+				)
+				ValDefineMacroContent(
+					label : Freq,
+					value : 10179,
+					comment : // Frequency
+				)
+				ValDefineMacroContent(
+					label : Period,
+					value : 10256,
+					comment : // Period
+				)
+				ValDefineMacroContent(
+					label : PulseWidth,
+					value : 10359,
+					comment : // Pulse Width
+				)
+				ValDefineMacroContent(
+					label : SemiPeriod,
+					value : 10289,
+					comment : // Semi Period
+				)
+				ValDefineMacroContent(
+					label : PulseFrequency,
+					value : 15864,
+					comment : // Pulse Frequency
+				)
+				ValDefineMacroContent(
+					label : PulseTime,
+					value : 15865,
+					comment : // Pulse Time
+				)
+				ValDefineMacroContent(
+					label : PulseTicks,
+					value : 15866,
+					comment : // Pulse Ticks
+				)
+				ValDefineMacroContent(
+					label : Position_AngEncoder,
+					value : 10360,
+					comment : // Position:Angular Encoder
+				)
+				ValDefineMacroContent(
+					label : Position_LinEncoder,
+					value : 10361,
+					comment : // Position:Linear Encoder
+				)
+				ValDefineMacroContent(
+					label : TwoEdgeSep,
+					value : 10267,
+					comment : // Two Edge Separation
+				)
+				ValDefineMacroContent(
+					label : GPS_Timestamp,
+					value : 10362,
+					comment : // GPS Timestamp
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Thrmcpl_CJCSrc ***'
+				'//*** Value set CJCSource1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : BuiltIn,
+					value : 10200,
+					comment : // Built-In
+				)
+				ValDefineMacroContent(
+					label : ConstVal,
+					value : 10116,
+					comment : // Constant Value
+				)
+				ValDefineMacroContent(
+					label : Chan,
+					value : 10113,
+					comment : // Channel
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CO_OutputType ***'
+				'//*** Values for DAQmx_Dev_CO_SupportedOutputTypes ***'
+				'//*** Values for DAQmx_PhysicalChan_CO_SupportedOutputTypes ***'
+				'//*** Value set COOutputType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pulse_Time,
+					value : 10269,
+					comment : // Pulse:Time
+				)
+				ValDefineMacroContent(
+					label : Pulse_Freq,
+					value : 10119,
+					comment : // Pulse:Frequency
+				)
+				ValDefineMacroContent(
+					label : Pulse_Ticks,
+					value : 10268,
+					comment : // Pulse:Ticks
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_ChanType ***'
+				'//*** Value set ChannelType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AI,
+					value : 10100,
+					comment : // Analog Input
+				)
+				ValDefineMacroContent(
+					label : AO,
+					value : 10102,
+					comment : // Analog Output
+				)
+				ValDefineMacroContent(
+					label : DI,
+					value : 10151,
+					comment : // Digital Input
+				)
+				ValDefineMacroContent(
+					label : DO,
+					value : 10153,
+					comment : // Digital Output
+				)
+				ValDefineMacroContent(
+					label : CI,
+					value : 10131,
+					comment : // Counter Input
+				)
+				ValDefineMacroContent(
+					label : CO,
+					value : 10132,
+					comment : // Counter Output
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CO_ConstrainedGenMode ***'
+				'//*** Value set ConstrainedGenMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Unconstrained,
+					value : 14708,
+					comment : // Unconstrained
+				)
+				ValDefineMacroContent(
+					label : FixedHighFreq,
+					value : 14709,
+					comment : // Fixed High Frequency
+				)
+				ValDefineMacroContent(
+					label : FixedLowFreq,
+					value : 14710,
+					comment : // Fixed Low Frequency
+				)
+				ValDefineMacroContent(
+					label : Fixed50PercentDutyCycle,
+					value : 14711,
+					comment : // Fixed 50 Percent Duty Cycle
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_CountEdges_Dir ***'
+				'//*** Value set CountDirection1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : CountUp,
+					value : 10128,
+					comment : // Count Up
+				)
+				ValDefineMacroContent(
+					label : CountDown,
+					value : 10124,
+					comment : // Count Down
+				)
+				ValDefineMacroContent(
+					label : ExtControlled,
+					value : 10326,
+					comment : // Externally Controlled
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Freq_MeasMeth ***'
+				'//*** Values for DAQmx_CI_Period_MeasMeth ***'
+				'//*** Value set CounterFrequencyMethod ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : LowFreq1Ctr,
+					value : 10105,
+					comment : // Low Frequency with 1 Counter
+				)
+				ValDefineMacroContent(
+					label : HighFreq2Ctr,
+					value : 10157,
+					comment : // High Frequency with 2 Counters
+				)
+				ValDefineMacroContent(
+					label : LargeRng2Ctr,
+					value : 10205,
+					comment : // Large Range with 2 Counters
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Coupling ***'
+				'//*** Value set Coupling1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AC,
+					value : 10045,
+					comment : // AC
+				)
+				ValDefineMacroContent(
+					label : DC,
+					value : 10050,
+					comment : // DC
+				)
+				ValDefineMacroContent(
+					label : GND,
+					value : 10066,
+					comment : // GND
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AnlgEdge_StartTrig_Coupling ***'
+				'//*** Values for DAQmx_AnlgWin_StartTrig_Coupling ***'
+				'//*** Values for DAQmx_AnlgEdge_RefTrig_Coupling ***'
+				'//*** Values for DAQmx_AnlgWin_RefTrig_Coupling ***'
+				'//*** Values for DAQmx_AnlgLvl_PauseTrig_Coupling ***'
+				'//*** Values for DAQmx_AnlgWin_PauseTrig_Coupling ***'
+				'//*** Value set Coupling2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AC,
+					value : 10045,
+					comment : // AC
+				)
+				ValDefineMacroContent(
+					label : DC,
+					value : 10050,
+					comment : // DC
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_CurrentShunt_Loc ***'
+				'//*** Value set CurrentShuntResistorLocation1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Internal,
+					value : 10200,
+					comment : // Internal
+				)
+				ValDefineMacroContent(
+					label : External,
+					value : 10167,
+					comment : // External
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Current_Units ***'
+				'//*** Values for DAQmx_AI_Current_ACRMS_Units ***'
+				'//*** Values for DAQmx_AO_Current_Units ***'
+				'//*** Value set CurrentUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Amps,
+					value : 10342,
+					comment : // Amps
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set CurrentUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Amps,
+					value : 10342,
+					comment : // Amps
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RawSampJustification ***'
+				'//*** Value set DataJustification1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : RightJustified,
+					value : 10279,
+					comment : // Right-Justified
+				)
+				ValDefineMacroContent(
+					label : LeftJustified,
+					value : 10209,
+					comment : // Left-Justified
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_DataXferMech ***'
+				'//*** Values for DAQmx_AO_DataXferMech ***'
+				'//*** Values for DAQmx_DI_DataXferMech ***'
+				'//*** Values for DAQmx_DO_DataXferMech ***'
+				'//*** Values for DAQmx_CI_DataXferMech ***'
+				'//*** Values for DAQmx_CO_DataXferMech ***'
+				'//*** Value set DataTransferMechanism ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DMA,
+					value : 10054,
+					comment : // DMA
+				)
+				ValDefineMacroContent(
+					label : Interrupts,
+					value : 10204,
+					comment : // Interrupts
+				)
+				ValDefineMacroContent(
+					label : ProgrammedIO,
+					value : 10264,
+					comment : // Programmed I/O
+				)
+				ValDefineMacroContent(
+					label : USBbulk,
+					value : 12590,
+					comment : // USB Bulk
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_RdyForXferEvent_DeassertCond ***'
+				'//*** Value set DeassertCondition ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : OnbrdMemMoreThanHalfFull,
+					value : 10237,
+					comment : // Onboard Memory More than Half Full
+				)
+				ValDefineMacroContent(
+					label : OnbrdMemFull,
+					value : 10236,
+					comment : // Onboard Memory Full
+				)
+				ValDefineMacroContent(
+					label : OnbrdMemCustomThreshold,
+					value : 12577,
+					comment : // Onboard Memory Custom Threshold
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_DO_OutputDriveType ***'
+				'//*** Value set DigitalDriveType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ActiveDrive,
+					value : 12573,
+					comment : // Active Drive
+				)
+				ValDefineMacroContent(
+					label : OpenCollector,
+					value : 12574,
+					comment : // Open Collector
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_DO_LineStates_StartState ***'
+				'//*** Values for DAQmx_DO_LineStates_PausedState ***'
+				'//*** Values for DAQmx_DO_LineStates_DoneState ***'
+				'//*** Values for DAQmx_Watchdog_DO_ExpirState ***'
+				'//*** Value set DigitalLineState ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : High,
+					value : 10192,
+					comment : // High
+				)
+				ValDefineMacroContent(
+					label : Low,
+					value : 10214,
+					comment : // Low
+				)
+				ValDefineMacroContent(
+					label : Tristate,
+					value : 10310,
+					comment : // Tristate
+				)
+				ValDefineMacroContent(
+					label : NoChange,
+					value : 10160,
+					comment : // No Change
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_DigPattern_StartTrig_When ***'
+				'//*** Values for DAQmx_DigPattern_RefTrig_When ***'
+				'//*** Values for DAQmx_DigPattern_PauseTrig_When ***'
+				'//*** Value set DigitalPatternCondition1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : PatternMatches,
+					value : 10254,
+					comment : // Pattern Matches
+				)
+				ValDefineMacroContent(
+					label : PatternDoesNotMatch,
+					value : 10253,
+					comment : // Pattern Does Not Match
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_StartTrig_DelayUnits ***'
+				'//*** Value set DigitalWidthUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SampClkPeriods,
+					value : 10286,
+					comment : // Sample Clock Periods
+				)
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_DelayFromSampClk_DelayUnits ***'
+				'//*** Value set DigitalWidthUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_AdvTrig_Pulse_WidthUnits ***'
+				'//*** Value set DigitalWidthUnits3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_EddyCurrentProxProbe_SensitivityUnits ***'
+				'//*** Value set EddyCurrentProxProbeSensitivityUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : mVoltsPerMil,
+					value : 14836,
+					comment : // mVolts/mil
+				)
+				ValDefineMacroContent(
+					label : VoltsPerMil,
+					value : 14837,
+					comment : // Volts/mil
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerMillimeter,
+					value : 14838,
+					comment : // mVolts/mMeter
+				)
+				ValDefineMacroContent(
+					label : VoltsPerMillimeter,
+					value : 14839,
+					comment : // Volts/mMeter
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerMicron,
+					value : 14840,
+					comment : // mVolts/micron
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Freq_StartingEdge ***'
+				'//*** Values for DAQmx_CI_Period_StartingEdge ***'
+				'//*** Values for DAQmx_CI_CountEdges_ActiveEdge ***'
+				'//*** Values for DAQmx_CI_CountEdges_CountReset_ActiveEdge ***'
+				'//*** Values for DAQmx_CI_PulseWidth_StartingEdge ***'
+				'//*** Values for DAQmx_CI_TwoEdgeSep_FirstEdge ***'
+				'//*** Values for DAQmx_CI_TwoEdgeSep_SecondEdge ***'
+				'//*** Values for DAQmx_CI_SemiPeriod_StartingEdge ***'
+				'//*** Values for DAQmx_CI_Pulse_Freq_Start_Edge ***'
+				'//*** Values for DAQmx_CI_Pulse_Time_StartEdge ***'
+				'//*** Values for DAQmx_CI_Pulse_Ticks_StartEdge ***'
+				'//*** Values for DAQmx_CI_CtrTimebaseActiveEdge ***'
+				'//*** Values for DAQmx_CO_CtrTimebaseActiveEdge ***'
+				'//*** Values for DAQmx_SampClk_ActiveEdge ***'
+				'//*** Values for DAQmx_SampClk_Timebase_ActiveEdge ***'
+				'//*** Values for DAQmx_AIConv_ActiveEdge ***'
+				'//*** Values for DAQmx_DigEdge_StartTrig_Edge ***'
+				'//*** Values for DAQmx_DigEdge_RefTrig_Edge ***'
+				'//*** Values for DAQmx_DigEdge_AdvTrig_Edge ***'
+				'//*** Values for DAQmx_DigEdge_ArmStartTrig_Edge ***'
+				'//*** Values for DAQmx_DigEdge_WatchdogExpirTrig_Edge ***'
+				'//*** Value set Edge1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Rising,
+					value : 10280,
+					comment : // Rising
+				)
+				ValDefineMacroContent(
+					label : Falling,
+					value : 10171,
+					comment : // Falling
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Encoder_DecodingType ***'
+				'//*** Value set EncoderType2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : X1,
+					value : 10090,
+					comment : // X1
+				)
+				ValDefineMacroContent(
+					label : X2,
+					value : 10091,
+					comment : // X2
+				)
+				ValDefineMacroContent(
+					label : X4,
+					value : 10092,
+					comment : // X4
+				)
+				ValDefineMacroContent(
+					label : TwoPulseCounting,
+					value : 10313,
+					comment : // Two Pulse Counting
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Encoder_ZIndexPhase ***'
+				'//*** Value set EncoderZIndexPhase1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AHighBHigh,
+					value : 10040,
+					comment : // A High B High
+				)
+				ValDefineMacroContent(
+					label : AHighBLow,
+					value : 10041,
+					comment : // A High B Low
+				)
+				ValDefineMacroContent(
+					label : ALowBHigh,
+					value : 10042,
+					comment : // A Low B High
+				)
+				ValDefineMacroContent(
+					label : ALowBLow,
+					value : 10043,
+					comment : // A Low B Low
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Excit_DCorAC ***'
+				'//*** Value set ExcitationDCorAC ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DC,
+					value : 10050,
+					comment : // DC
+				)
+				ValDefineMacroContent(
+					label : AC,
+					value : 10045,
+					comment : // AC
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Excit_Src ***'
+				'//*** Value set ExcitationSource ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Internal,
+					value : 10200,
+					comment : // Internal
+				)
+				ValDefineMacroContent(
+					label : External,
+					value : 10167,
+					comment : // External
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Excit_VoltageOrCurrent ***'
+				'//*** Value set ExcitationVoltageOrCurrent ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Voltage,
+					value : 10322,
+					comment : // Voltage
+				)
+				ValDefineMacroContent(
+					label : Current,
+					value : 10134,
+					comment : // Current
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_CtrOutEvent_OutputBehavior ***'
+				'//*** Value set ExportActions2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pulse,
+					value : 10265,
+					comment : // Pulse
+				)
+				ValDefineMacroContent(
+					label : Toggle,
+					value : 10307,
+					comment : // Toggle
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_SampClk_OutputBehavior ***'
+				'//*** Value set ExportActions3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pulse,
+					value : 10265,
+					comment : // Pulse
+				)
+				ValDefineMacroContent(
+					label : Lvl,
+					value : 10210,
+					comment : // Level
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_HshkEvent_OutputBehavior ***'
+				'//*** Value set ExportActions5 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Interlocked,
+					value : 12549,
+					comment : // Interlocked
+				)
+				ValDefineMacroContent(
+					label : Pulse,
+					value : 10265,
+					comment : // Pulse
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Force_IEPESensor_SensitivityUnits ***'
+				'//*** Value set ForceIEPESensorSensitivityUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : mVoltsPerNewton,
+					value : 15891,
+					comment : // mVolts/N
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerPound,
+					value : 15892,
+					comment : // mVolts/lb
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Force_Units ***'
+				'//*** Value set ForceUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Newtons,
+					value : 15875,
+					comment : // Newtons
+				)
+				ValDefineMacroContent(
+					label : Pounds,
+					value : 15876,
+					comment : // Pounds
+				)
+				ValDefineMacroContent(
+					label : KilogramForce,
+					value : 15877,
+					comment : // kgf
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Freq_Units ***'
+				'//*** Value set FrequencyUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Hz,
+					value : 10373,
+					comment : // Hz
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Pulse_Freq_Units ***'
+				'//*** Values for DAQmx_CO_Pulse_Freq_Units ***'
+				'//*** Value set FrequencyUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Hz,
+					value : 10373,
+					comment : // Hz
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Freq_Units ***'
+				'//*** Value set FrequencyUnits3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Hz,
+					value : 10373,
+					comment : // Hz
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_FuncGen_Type ***'
+				'//*** Value set FuncGenType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Sine,
+					value : 14751,
+					comment : // Sine
+				)
+				ValDefineMacroContent(
+					label : Triangle,
+					value : 14752,
+					comment : // Triangle
+				)
+				ValDefineMacroContent(
+					label : Square,
+					value : 14753,
+					comment : // Square
+				)
+				ValDefineMacroContent(
+					label : Sawtooth,
+					value : 14754,
+					comment : // Sawtooth
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_GPS_SyncMethod ***'
+				'//*** Value set GpsSignalType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : IRIGB,
+					value : 10070,
+					comment : // IRIG-B
+				)
+				ValDefineMacroContent(
+					label : PPS,
+					value : 10080,
+					comment : // PPS
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Hshk_StartCond ***'
+				'//*** Value set HandshakeStartCondition ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Immediate,
+					value : 10198,
+					comment : // Immediate
+				)
+				ValDefineMacroContent(
+					label : WaitForHandshakeTriggerAssert,
+					value : 12550,
+					comment : // Wait For Handshake Trigger Assert
+				)
+				ValDefineMacroContent(
+					label : WaitForHandshakeTriggerDeassert,
+					value : 12551,
+					comment : // Wait For Handshake Trigger Deassert
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_DataXferReqCond ***'
+				'//*** Values for DAQmx_DI_DataXferReqCond ***'
+				'//*** Values for DAQmx_CI_DataXferReqCond ***'
+				'//*** Value set InputDataTransferCondition ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : OnBrdMemMoreThanHalfFull,
+					value : 10237,
+					comment : // Onboard Memory More than Half Full
+				)
+				ValDefineMacroContent(
+					label : OnBrdMemNotEmpty,
+					value : 10241,
+					comment : // Onboard Memory Not Empty
+				)
+				ValDefineMacroContent(
+					label : OnbrdMemCustomThreshold,
+					value : 12577,
+					comment : // Onboard Memory Custom Threshold
+				)
+				ValDefineMacroContent(
+					label : WhenAcqComplete,
+					value : 12546,
+					comment : // When Acquisition Complete
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_TermCfg ***'
+				'//*** Value set InputTermCfg ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : RSE,
+					value : 10083,
+					comment : // RSE
+				)
+				ValDefineMacroContent(
+					label : NRSE,
+					value : 10078,
+					comment : // NRSE
+				)
+				ValDefineMacroContent(
+					label : Diff,
+					value : 10106,
+					comment : // Differential
+				)
+				ValDefineMacroContent(
+					label : PseudoDiff,
+					value : 12529,
+					comment : // Pseudodifferential
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_LVDT_SensitivityUnits ***'
+				'//*** Value set LVDTSensitivityUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : mVoltsPerVoltPerMillimeter,
+					value : 12506,
+					comment : // mVolts/Volt/mMeter
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerVoltPerMilliInch,
+					value : 12505,
+					comment : // mVolts/Volt/0.001 Inch
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_LVDT_Units ***'
+				'//*** Values for DAQmx_AI_EddyCurrentProxProbe_Units ***'
+				'//*** Value set LengthUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Meters,
+					value : 10219,
+					comment : // Meters
+				)
+				ValDefineMacroContent(
+					label : Inches,
+					value : 10379,
+					comment : // Inches
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_LinEncoder_Units ***'
+				'//*** Value set LengthUnits3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Meters,
+					value : 10219,
+					comment : // Meters
+				)
+				ValDefineMacroContent(
+					label : Inches,
+					value : 10379,
+					comment : // Inches
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_OutputState ***'
+				'//*** Values for DAQmx_CO_Pulse_IdleState ***'
+				'//*** Values for DAQmx_CO_OutputState ***'
+				'//*** Values for DAQmx_Exported_CtrOutEvent_Toggle_IdleState ***'
+				'//*** Values for DAQmx_Exported_HshkEvent_Interlocked_AssertedLvl ***'
+				'//*** Values for DAQmx_Interlocked_HshkTrig_AssertedLvl ***'
+				'//*** Values for DAQmx_DigLvl_PauseTrig_When ***'
+				'//*** Value set Level1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : High,
+					value : 10192,
+					comment : // High
+				)
+				ValDefineMacroContent(
+					label : Low,
+					value : 10214,
+					comment : // Low
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Logging_Mode ***'
+				'//*** Value set LoggingMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Off,
+					value : 10231,
+					comment : // Off
+				)
+				ValDefineMacroContent(
+					label : Log,
+					value : 15844,
+					comment : // Log
+				)
+				ValDefineMacroContent(
+					label : LogAndRead,
+					value : 15842,
+					comment : // Log and Read
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Logging_TDMS_Operation ***'
+				'//*** Value set LoggingOperation ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Open,
+					value : 10437,
+					comment : // Open
+				)
+				ValDefineMacroContent(
+					label : OpenOrCreate,
+					value : 15846,
+					comment : // Open or Create
+				)
+				ValDefineMacroContent(
+					label : CreateOrReplace,
+					value : 15847,
+					comment : // Create or Replace
+				)
+				ValDefineMacroContent(
+					label : Create,
+					value : 15848,
+					comment : // Create
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 5.0 V'
+				'//*** Values for DAQmx_AIConv_Timebase_Src ***'
+				'//*** Value set MIOAIConvertTbSrc ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SameAsSampTimebase,
+					value : 10284,
+					comment : // Same as Sample Timebase
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 100 MHz Timebase'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SameAsMasterTimebase,
+					value : 10282,
+					comment : // Same as Master Timebase
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 80MHz Timebase'
+				'//*** Values for DAQmx_AO_FuncGen_ModulationType ***'
+				'//*** Value set ModulationType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AM,
+					value : 14756,
+					comment : // AM
+				)
+				ValDefineMacroContent(
+					label : FM,
+					value : 14757,
+					comment : // FM
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_DataXferReqCond ***'
+				'//*** Values for DAQmx_DO_DataXferReqCond ***'
+				'//*** Values for DAQmx_CO_DataXferReqCond ***'
+				'//*** Value set OutputDataTransferCondition ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : OnBrdMemEmpty,
+					value : 10235,
+					comment : // Onboard Memory Empty
+				)
+				ValDefineMacroContent(
+					label : OnBrdMemHalfFullOrLess,
+					value : 10239,
+					comment : // Onboard Memory Half Full or Less
+				)
+				ValDefineMacroContent(
+					label : OnBrdMemNotFull,
+					value : 10242,
+					comment : // Onboard Memory Less than Full
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_TermCfg ***'
+				'//*** Value set OutputTermCfg ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : RSE,
+					value : 10083,
+					comment : // RSE
+				)
+				ValDefineMacroContent(
+					label : Diff,
+					value : 10106,
+					comment : // Differential
+				)
+				ValDefineMacroContent(
+					label : PseudoDiff,
+					value : 12529,
+					comment : // Pseudodifferential
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SampClk_OverrunBehavior ***'
+				'//*** Value set OverflowBehavior ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : StopTaskAndError,
+					value : 15862,
+					comment : // Stop Task And Error
+				)
+				ValDefineMacroContent(
+					label : IgnoreOverruns,
+					value : 15863,
+					comment : // Ignore Overruns
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Read_OverWrite ***'
+				'//*** Value set OverwriteMode1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : OverwriteUnreadSamps,
+					value : 10252,
+					comment : // Overwrite Unread Samples
+				)
+				ValDefineMacroContent(
+					label : DoNotOverwriteUnreadSamps,
+					value : 10159,
+					comment : // Do Not Overwrite Unread Samples
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Exported_AIConvClk_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_SampClk_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_AdvTrig_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_PauseTrig_Lvl_ActiveLvl ***'
+				'//*** Values for DAQmx_Exported_RefTrig_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_StartTrig_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_AdvCmpltEvent_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_AIHoldCmpltEvent_PulsePolarity ***'
+				'//*** Values for DAQmx_Exported_ChangeDetectEvent_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_CtrOutEvent_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_HshkEvent_Pulse_Polarity ***'
+				'//*** Values for DAQmx_Exported_RdyForXferEvent_Lvl_ActiveLvl ***'
+				'//*** Values for DAQmx_Exported_DataActiveEvent_Lvl_ActiveLvl ***'
+				'//*** Values for DAQmx_Exported_RdyForStartEvent_Lvl_ActiveLvl ***'
+				'//*** Value set Polarity2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : ActiveHigh,
+					value : 10095,
+					comment : // Active High
+				)
+				ValDefineMacroContent(
+					label : ActiveLow,
+					value : 10096,
+					comment : // Active Low
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Pressure_Units ***'
+				'//*** Value set PressureUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pascals,
+					value : 10081,
+					comment : // Pascals
+				)
+				ValDefineMacroContent(
+					label : PoundsPerSquareInch,
+					value : 15879,
+					comment : // psi
+				)
+				ValDefineMacroContent(
+					label : Bar,
+					value : 15880,
+					comment : // bar
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Dev_ProductCategory ***'
+				'//*** Value set ProductCategory ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : MSeriesDAQ,
+					value : 14643,
+					comment : // M Series DAQ
+				)
+				ValDefineMacroContent(
+					label : XSeriesDAQ,
+					value : 15858,
+					comment : // X Series DAQ
+				)
+				ValDefineMacroContent(
+					label : ESeriesDAQ,
+					value : 14642,
+					comment : // E Series DAQ
+				)
+				ValDefineMacroContent(
+					label : SSeriesDAQ,
+					value : 14644,
+					comment : // S Series DAQ
+				)
+				ValDefineMacroContent(
+					label : BSeriesDAQ,
+					value : 14662,
+					comment : // B Series DAQ
+				)
+				ValDefineMacroContent(
+					label : SCSeriesDAQ,
+					value : 14645,
+					comment : // SC Series DAQ
+				)
+				ValDefineMacroContent(
+					label : USBDAQ,
+					value : 14646,
+					comment : // USB DAQ
+				)
+				ValDefineMacroContent(
+					label : AOSeries,
+					value : 14647,
+					comment : // AO Series
+				)
+				ValDefineMacroContent(
+					label : DigitalIO,
+					value : 14648,
+					comment : // Digital I/O
+				)
+				ValDefineMacroContent(
+					label : TIOSeries,
+					value : 14661,
+					comment : // TIO Series
+				)
+				ValDefineMacroContent(
+					label : DynamicSignalAcquisition,
+					value : 14649,
+					comment : // Dynamic Signal Acquisition
+				)
+				ValDefineMacroContent(
+					label : Switches,
+					value : 14650,
+					comment : // Switches
+				)
+				ValDefineMacroContent(
+					label : CompactDAQChassis,
+					value : 14658,
+					comment : // CompactDAQ Chassis
+				)
+				ValDefineMacroContent(
+					label : CSeriesModule,
+					value : 14659,
+					comment : // C Series Module
+				)
+				ValDefineMacroContent(
+					label : SCXIModule,
+					value : 14660,
+					comment : // SCXI Module
+				)
+				ValDefineMacroContent(
+					label : SCCConnectorBlock,
+					value : 14704,
+					comment : // SCC Connector Block
+				)
+				ValDefineMacroContent(
+					label : SCCModule,
+					value : 14705,
+					comment : // SCC Module
+				)
+				ValDefineMacroContent(
+					label : NIELVIS,
+					value : 14755,
+					comment : // NI ELVIS
+				)
+				ValDefineMacroContent(
+					label : NetworkDAQ,
+					value : 14829,
+					comment : // Network DAQ
+				)
+				ValDefineMacroContent(
+					label : SCExpress,
+					value : 15886,
+					comment : // SC Express
+				)
+				ValDefineMacroContent(
+					label : Unknown,
+					value : 12588,
+					comment : // Unknown
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RTD_Type ***'
+				'//*** Value set RTDType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pt3750,
+					value : 12481,
+					comment : // Pt3750
+				)
+				ValDefineMacroContent(
+					label : Pt3851,
+					value : 10071,
+					comment : // Pt3851
+				)
+				ValDefineMacroContent(
+					label : Pt3911,
+					value : 12482,
+					comment : // Pt3911
+				)
+				ValDefineMacroContent(
+					label : Pt3916,
+					value : 10069,
+					comment : // Pt3916
+				)
+				ValDefineMacroContent(
+					label : Pt3920,
+					value : 10053,
+					comment : // Pt3920
+				)
+				ValDefineMacroContent(
+					label : Pt3928,
+					value : 12483,
+					comment : // Pt3928
+				)
+				ValDefineMacroContent(
+					label : Custom,
+					value : 10137,
+					comment : // Custom
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RVDT_SensitivityUnits ***'
+				'//*** Value set RVDTSensitivityUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : mVoltsPerVoltPerDegree,
+					value : 12507,
+					comment : // mVolts/Volt/Degree
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerVoltPerRadian,
+					value : 12508,
+					comment : // mVolts/Volt/Radian
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RawDataCompressionType ***'
+				'//*** Value set RawDataCompressionType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+				ValDefineMacroContent(
+					label : LosslessPacking,
+					value : 12555,
+					comment : // Lossless Packing
+				)
+				ValDefineMacroContent(
+					label : LossyLSBRemoval,
+					value : 12556,
+					comment : // Lossy LSB Removal
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Read_RelativeTo ***'
+				'//*** Value set ReadRelativeTo ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FirstSample,
+					value : 10424,
+					comment : // First Sample
+				)
+				ValDefineMacroContent(
+					label : CurrReadPos,
+					value : 10425,
+					comment : // Current Read Position
+				)
+				ValDefineMacroContent(
+					label : RefTrig,
+					value : 10426,
+					comment : // Reference Trigger
+				)
+				ValDefineMacroContent(
+					label : FirstPretrigSamp,
+					value : 10427,
+					comment : // First Pretrigger Sample
+				)
+				ValDefineMacroContent(
+					label : MostRecentSamp,
+					value : 10428,
+					comment : // Most Recent Sample
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Write_RegenMode ***'
+				'//*** Value set RegenerationMode1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AllowRegen,
+					value : 10097,
+					comment : // Allow Regeneration
+				)
+				ValDefineMacroContent(
+					label : DoNotAllowRegen,
+					value : 10158,
+					comment : // Do Not Allow Regeneration
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 4-Wire'
+				'//*** Values for DAQmx_AI_Resistance_Units ***'
+				'//*** Value set ResistanceUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Ohms,
+					value : 10384,
+					comment : // Ohms
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set ResistanceUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Ohms,
+					value : 10384,
+					comment : // Ohms
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_ResolutionUnits ***'
+				'//*** Values for DAQmx_AO_ResolutionUnits ***'
+				'//*** Value set ResolutionType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Bits,
+					value : 10109,
+					comment : // Bits
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set SCXI1124Range ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SCXI1124Range0to1V,
+					value : 14629,
+					comment : // 0V to 1V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124Range0to5V,
+					value : 14630,
+					comment : // 0V to 5V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124Range0to10V,
+					value : 14631,
+					comment : // 0V to 10V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124RangeNeg1to1V,
+					value : 14632,
+					comment : // -1V to 1V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124RangeNeg5to5V,
+					value : 14633,
+					comment : // -5V to 5V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124RangeNeg10to10V,
+					value : 14634,
+					comment : // -10V to 10V
+				)
+				ValDefineMacroContent(
+					label : SCXI1124Range0to20mA,
+					value : 14635,
+					comment : // 0mA to 20mA
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_DI_AcquireOn ***'
+				'//*** Values for DAQmx_DO_GenerateOn ***'
+				'//*** Value set SampleClockActiveOrInactiveEdgeSelection ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SampClkActiveEdge,
+					value : 14617,
+					comment : // Sample Clock Active Edge
+				)
+				ValDefineMacroContent(
+					label : SampClkInactiveEdge,
+					value : 14618,
+					comment : // Sample Clock Inactive Edge
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Hshk_SampleInputDataWhen ***'
+				'//*** Value set SampleInputDataWhen ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : HandshakeTriggerAsserts,
+					value : 12552,
+					comment : // Handshake Trigger Asserts
+				)
+				ValDefineMacroContent(
+					label : HandshakeTriggerDeasserts,
+					value : 12553,
+					comment : // Handshake Trigger Deasserts
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SampTimingType ***'
+				'//*** Value set SampleTimingType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SampClk,
+					value : 10388,
+					comment : // Sample Clock
+				)
+				ValDefineMacroContent(
+					label : BurstHandshake,
+					value : 12548,
+					comment : // Burst Handshake
+				)
+				ValDefineMacroContent(
+					label : Handshake,
+					value : 10389,
+					comment : // Handshake
+				)
+				ValDefineMacroContent(
+					label : Implicit,
+					value : 10451,
+					comment : // Implicit
+				)
+				ValDefineMacroContent(
+					label : OnDemand,
+					value : 10390,
+					comment : // On Demand
+				)
+				ValDefineMacroContent(
+					label : ChangeDetection,
+					value : 12504,
+					comment : // Change Detection
+				)
+				ValDefineMacroContent(
+					label : PipelinedSampClk,
+					value : 14668,
+					comment : // Pipelined Sample Clock
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Scale_Type ***'
+				'//*** Value set ScaleType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Linear,
+					value : 10447,
+					comment : // Linear
+				)
+				ValDefineMacroContent(
+					label : MapRanges,
+					value : 10448,
+					comment : // Map Ranges
+				)
+				ValDefineMacroContent(
+					label : Polynomial,
+					value : 10449,
+					comment : // Polynomial
+				)
+				ValDefineMacroContent(
+					label : Table,
+					value : 10450,
+					comment : // Table
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Thrmcpl_ScaleType ***'
+				'//*** Value set ScaleType2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Polynomial,
+					value : 10449,
+					comment : // Polynomial
+				)
+				ValDefineMacroContent(
+					label : Table,
+					value : 10450,
+					comment : // Table
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_ChanCal_ScaleType ***'
+				'//*** Value set ScaleType3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Polynomial,
+					value : 10449,
+					comment : // Polynomial
+				)
+				ValDefineMacroContent(
+					label : Table,
+					value : 10450,
+					comment : // Table
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_ScaleType ***'
+				'//*** Value set ScaleType4 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+				ValDefineMacroContent(
+					label : TwoPointLinear,
+					value : 15898,
+					comment : // Two-Point Linear
+				)
+				ValDefineMacroContent(
+					label : Table,
+					value : 10450,
+					comment : // Table
+				)
+				ValDefineMacroContent(
+					label : Polynomial,
+					value : 10449,
+					comment : // Polynomial
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Bridge_ShuntCal_Select ***'
+				'//*** Value set ShuntCalSelect ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : A,
+					value : 12513,
+					comment : // A
+				)
+				ValDefineMacroContent(
+					label : B,
+					value : 12514,
+					comment : // B
+				)
+				ValDefineMacroContent(
+					label : AandB,
+					value : 12515,
+					comment : // A and B
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set ShuntElementLocation ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : R1,
+					value : 12465,
+					comment : // R1
+				)
+				ValDefineMacroContent(
+					label : R2,
+					value : 12466,
+					comment : // R2
+				)
+				ValDefineMacroContent(
+					label : R3,
+					value : 12467,
+					comment : // R3
+				)
+				ValDefineMacroContent(
+					label : R4,
+					value : 14813,
+					comment : // R4
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set Signal ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AIConvertClock,
+					value : 12484,
+					comment : // AI Convert Clock
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 20MHz Timebase Clock'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SampleClock,
+					value : 12487,
+					comment : // Sample Clock
+				)
+				ValDefineMacroContent(
+					label : AdvanceTrigger,
+					value : 12488,
+					comment : // Advance Trigger
+				)
+				ValDefineMacroContent(
+					label : ReferenceTrigger,
+					value : 12490,
+					comment : // Reference Trigger
+				)
+				ValDefineMacroContent(
+					label : StartTrigger,
+					value : 12491,
+					comment : // Start Trigger
+				)
+				ValDefineMacroContent(
+					label : AdvCmpltEvent,
+					value : 12492,
+					comment : // Advance Complete Event
+				)
+				ValDefineMacroContent(
+					label : AIHoldCmpltEvent,
+					value : 12493,
+					comment : // AI Hold Complete Event
+				)
+				ValDefineMacroContent(
+					label : CounterOutputEvent,
+					value : 12494,
+					comment : // Counter Output Event
+				)
+				ValDefineMacroContent(
+					label : ChangeDetectionEvent,
+					value : 12511,
+					comment : // Change Detection Event
+				)
+				ValDefineMacroContent(
+					label : WDTExpiredEvent,
+					value : 12512,
+					comment : // Watchdog Timer Expired Event
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set Signal2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SampleCompleteEvent,
+					value : 12530,
+					comment : // Sample Complete Event
+				)
+				ValDefineMacroContent(
+					label : CounterOutputEvent,
+					value : 12494,
+					comment : // Counter Output Event
+				)
+				ValDefineMacroContent(
+					label : ChangeDetectionEvent,
+					value : 12511,
+					comment : // Change Detection Event
+				)
+				ValDefineMacroContent(
+					label : SampleClock,
+					value : 12487,
+					comment : // Sample Clock
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AnlgEdge_StartTrig_Slope ***'
+				'//*** Values for DAQmx_AnlgEdge_RefTrig_Slope ***'
+				'//*** Value set Slope1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : RisingSlope,
+					value : 10280,
+					comment : // Rising
+				)
+				ValDefineMacroContent(
+					label : FallingSlope,
+					value : 10171,
+					comment : // Falling
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_SoundPressure_Units ***'
+				'//*** Value set SoundPressureUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Pascals,
+					value : 10081,
+					comment : // Pascals
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Lowpass_SwitchCap_ClkSrc ***'
+				'//*** Values for DAQmx_AO_DAC_Ref_Src ***'
+				'//*** Values for DAQmx_AO_DAC_Offset_Src ***'
+				'//*** Value set SourceSelection ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Internal,
+					value : 10200,
+					comment : // Internal
+				)
+				ValDefineMacroContent(
+					label : External,
+					value : 10167,
+					comment : // External
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_StrainGage_Cfg ***'
+				'//*** Value set StrainGageBridgeType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FullBridgeI,
+					value : 10183,
+					comment : // Full Bridge I
+				)
+				ValDefineMacroContent(
+					label : FullBridgeII,
+					value : 10184,
+					comment : // Full Bridge II
+				)
+				ValDefineMacroContent(
+					label : FullBridgeIII,
+					value : 10185,
+					comment : // Full Bridge III
+				)
+				ValDefineMacroContent(
+					label : HalfBridgeI,
+					value : 10188,
+					comment : // Half Bridge I
+				)
+				ValDefineMacroContent(
+					label : HalfBridgeII,
+					value : 10189,
+					comment : // Half Bridge II
+				)
+				ValDefineMacroContent(
+					label : QuarterBridgeI,
+					value : 10271,
+					comment : // Quarter Bridge I
+				)
+				ValDefineMacroContent(
+					label : QuarterBridgeII,
+					value : 10272,
+					comment : // Quarter Bridge II
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RosetteStrainGage_RosetteType ***'
+				'//*** Value set StrainGageRosetteType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : RectangularRosette,
+					value : 15968,
+					comment : // Rectangular Rosette
+				)
+				ValDefineMacroContent(
+					label : DeltaRosette,
+					value : 15969,
+					comment : // Delta Rosette
+				)
+				ValDefineMacroContent(
+					label : TeeRosette,
+					value : 15970,
+					comment : // Tee Rosette
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_RosetteStrainGage_RosetteMeasType ***'
+				'//*** Value set StrainGageRosetteMeasurementType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : PrincipalStrain1,
+					value : 15971,
+					comment : // Principal Strain 1
+				)
+				ValDefineMacroContent(
+					label : PrincipalStrain2,
+					value : 15972,
+					comment : // Principal Strain 2
+				)
+				ValDefineMacroContent(
+					label : PrincipalStrainAngle,
+					value : 15973,
+					comment : // Principal Strain Angle
+				)
+				ValDefineMacroContent(
+					label : CartesianStrainX,
+					value : 15974,
+					comment : // Cartesian Strain X
+				)
+				ValDefineMacroContent(
+					label : CartesianStrainY,
+					value : 15975,
+					comment : // Cartesian Strain Y
+				)
+				ValDefineMacroContent(
+					label : CartesianShearStrainXY,
+					value : 15976,
+					comment : // Cartesian Shear Strain XY
+				)
+				ValDefineMacroContent(
+					label : MaxShearStrain,
+					value : 15977,
+					comment : // Maximum Shear Strain
+				)
+				ValDefineMacroContent(
+					label : MaxShearStrainAngle,
+					value : 15978,
+					comment : // Maximum Shear Strain Angle
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Strain_Units ***'
+				'//*** Value set StrainUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Strain,
+					value : 10299,
+					comment : // Strain
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SwitchScan_RepeatMode ***'
+				'//*** Value set SwitchScanRepeatMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Finite,
+					value : 10172,
+					comment : // Finite
+				)
+				ValDefineMacroContent(
+					label : Cont,
+					value : 10117,
+					comment : // Continuous
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SwitchChan_Usage ***'
+				'//*** Value set SwitchUsageTypes ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Source,
+					value : 10439,
+					comment : // Source
+				)
+				ValDefineMacroContent(
+					label : Load,
+					value : 10440,
+					comment : // Load
+				)
+				ValDefineMacroContent(
+					label : ReservedForRouting,
+					value : 10441,
+					comment : // Reserved for Routing
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Trigger_SyncType ***'
+				'//*** Value set SyncType ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+				ValDefineMacroContent(
+					label : Master,
+					value : 15888,
+					comment : // Master
+				)
+				ValDefineMacroContent(
+					label : Slave,
+					value : 15889,
+					comment : // Slave
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set TEDSUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Temp_Units ***'
+				'//*** Value set TemperatureUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DegC,
+					value : 10143,
+					comment : // Deg C
+				)
+				ValDefineMacroContent(
+					label : DegF,
+					value : 10144,
+					comment : // Deg F
+				)
+				ValDefineMacroContent(
+					label : Kelvins,
+					value : 10325,
+					comment : // Kelvins
+				)
+				ValDefineMacroContent(
+					label : DegR,
+					value : 10145,
+					comment : // Deg R
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Thrmcpl_Type ***'
+				'//*** Value set ThermocoupleType1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : J_Type_TC,
+					value : 10072,
+					comment : // J
+				)
+				ValDefineMacroContent(
+					label : K_Type_TC,
+					value : 10073,
+					comment : // K
+				)
+				ValDefineMacroContent(
+					label : N_Type_TC,
+					value : 10077,
+					comment : // N
+				)
+				ValDefineMacroContent(
+					label : R_Type_TC,
+					value : 10082,
+					comment : // R
+				)
+				ValDefineMacroContent(
+					label : S_Type_TC,
+					value : 10085,
+					comment : // S
+				)
+				ValDefineMacroContent(
+					label : T_Type_TC,
+					value : 10086,
+					comment : // T
+				)
+				ValDefineMacroContent(
+					label : B_Type_TC,
+					value : 10047,
+					comment : // B
+				)
+				ValDefineMacroContent(
+					label : E_Type_TC,
+					value : 10055,
+					comment : // E
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Timestamp_Units ***'
+				'//*** Value set TimeUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Pulse_Time_Units ***'
+				'//*** Values for DAQmx_CO_Pulse_Time_Units ***'
+				'//*** Value set TimeUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_CI_Period_Units ***'
+				'//*** Values for DAQmx_CI_PulseWidth_Units ***'
+				'//*** Values for DAQmx_CI_TwoEdgeSep_Units ***'
+				'//*** Values for DAQmx_CI_SemiPeriod_Units ***'
+				'//*** Value set TimeUnits3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set TimingResponseMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : SingleCycle,
+					value : 14613,
+					comment : // Single-cycle
+				)
+				ValDefineMacroContent(
+					label : Multicycle,
+					value : 14614,
+					comment : // Multicycle
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Torque_Units ***'
+				'//*** Value set TorqueUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : NewtonMeters,
+					value : 15881,
+					comment : // Nm
+				)
+				ValDefineMacroContent(
+					label : InchOunces,
+					value : 15882,
+					comment : // oz-in
+				)
+				ValDefineMacroContent(
+					label : InchPounds,
+					value : 15883,
+					comment : // lb-in
+				)
+				ValDefineMacroContent(
+					label : FootPounds,
+					value : 15884,
+					comment : // lb-ft
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_ArmStartTrig_Type ***'
+				'//*** Values for DAQmx_WatchdogExpirTrig_Type ***'
+				'//*** Value set TriggerType4 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DigEdge,
+					value : 10150,
+					comment : // Digital Edge
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AdvTrig_Type ***'
+				'//*** Value set TriggerType5 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : DigEdge,
+					value : 10150,
+					comment : // Digital Edge
+				)
+				ValDefineMacroContent(
+					label : Software,
+					value : 10292,
+					comment : // Software
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_PauseTrig_Type ***'
+				'//*** Value set TriggerType6 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AnlgLvl,
+					value : 10101,
+					comment : // Analog Level
+				)
+				ValDefineMacroContent(
+					label : AnlgWin,
+					value : 10103,
+					comment : // Analog Window
+				)
+				ValDefineMacroContent(
+					label : DigLvl,
+					value : 10152,
+					comment : // Digital Level
+				)
+				ValDefineMacroContent(
+					label : DigPattern,
+					value : 10398,
+					comment : // Digital Pattern
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_RefTrig_Type ***'
+				'//*** Value set TriggerType8 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AnlgEdge,
+					value : 10099,
+					comment : // Analog Edge
+				)
+				ValDefineMacroContent(
+					label : DigEdge,
+					value : 10150,
+					comment : // Digital Edge
+				)
+				ValDefineMacroContent(
+					label : DigPattern,
+					value : 10398,
+					comment : // Digital Pattern
+				)
+				ValDefineMacroContent(
+					label : AnlgWin,
+					value : 10103,
+					comment : // Analog Window
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_HshkTrig_Type ***'
+				'//*** Value set TriggerType9 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Interlocked,
+					value : 12549,
+					comment : // Interlocked
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_StartTrig_Type ***'
+				'//*** Value set TriggerType10 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : AnlgEdge,
+					value : 10099,
+					comment : // Analog Edge
+				)
+				ValDefineMacroContent(
+					label : DigEdge,
+					value : 10150,
+					comment : // Digital Edge
+				)
+				ValDefineMacroContent(
+					label : DigPattern,
+					value : 10398,
+					comment : // Digital Pattern
+				)
+				ValDefineMacroContent(
+					label : AnlgWin,
+					value : 10103,
+					comment : // Analog Window
+				)
+				ValDefineMacroContent(
+					label : None,
+					value : 10230,
+					comment : // None
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_SampClk_UnderflowBehavior ***'
+				'//*** Values for DAQmx_Implicit_UnderflowBehavior ***'
+				'//*** Value set UnderflowBehavior ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : HaltOutputAndError,
+					value : 14615,
+					comment : // Halt Output and Error
+				)
+				ValDefineMacroContent(
+					label : PauseUntilDataAvailable,
+					value : 14616,
+					comment : // Pause until Data Available
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Scale_PreScaledUnits ***'
+				'//*** Value set UnitsPreScaled ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Volts,
+					value : 10348,
+					comment : // Volts
+				)
+				ValDefineMacroContent(
+					label : Amps,
+					value : 10342,
+					comment : // Amps
+				)
+				ValDefineMacroContent(
+					label : DegF,
+					value : 10144,
+					comment : // Deg F
+				)
+				ValDefineMacroContent(
+					label : DegC,
+					value : 10143,
+					comment : // Deg C
+				)
+				ValDefineMacroContent(
+					label : DegR,
+					value : 10145,
+					comment : // Deg R
+				)
+				ValDefineMacroContent(
+					label : Kelvins,
+					value : 10325,
+					comment : // Kelvins
+				)
+				ValDefineMacroContent(
+					label : Strain,
+					value : 10299,
+					comment : // Strain
+				)
+				ValDefineMacroContent(
+					label : Ohms,
+					value : 10384,
+					comment : // Ohms
+				)
+				ValDefineMacroContent(
+					label : Hz,
+					value : 10373,
+					comment : // Hz
+				)
+				ValDefineMacroContent(
+					label : Seconds,
+					value : 10364,
+					comment : // Seconds
+				)
+				ValDefineMacroContent(
+					label : Meters,
+					value : 10219,
+					comment : // Meters
+				)
+				ValDefineMacroContent(
+					label : Inches,
+					value : 10379,
+					comment : // Inches
+				)
+				ValDefineMacroContent(
+					label : Degrees,
+					value : 10146,
+					comment : // Degrees
+				)
+				ValDefineMacroContent(
+					label : Radians,
+					value : 10273,
+					comment : // Radians
+				)
+				ValDefineMacroContent(
+					label : Ticks,
+					value : 10304,
+					comment : // Ticks
+				)
+				ValDefineMacroContent(
+					label : g,
+					value : 10186,
+					comment : // g
+				)
+				ValDefineMacroContent(
+					label : MetersPerSecondSquared,
+					value : 12470,
+					comment : // m/s^2
+				)
+				ValDefineMacroContent(
+					label : Pascals,
+					value : 10081,
+					comment : // Pascals
+				)
+				ValDefineMacroContent(
+					label : Newtons,
+					value : 15875,
+					comment : // Newtons
+				)
+				ValDefineMacroContent(
+					label : Pounds,
+					value : 15876,
+					comment : // Pounds
+				)
+				ValDefineMacroContent(
+					label : KilogramForce,
+					value : 15877,
+					comment : // kgf
+				)
+				ValDefineMacroContent(
+					label : PoundsPerSquareInch,
+					value : 15879,
+					comment : // psi
+				)
+				ValDefineMacroContent(
+					label : Bar,
+					value : 15880,
+					comment : // bar
+				)
+				ValDefineMacroContent(
+					label : NewtonMeters,
+					value : 15881,
+					comment : // Nm
+				)
+				ValDefineMacroContent(
+					label : InchOunces,
+					value : 15882,
+					comment : // oz-in
+				)
+				ValDefineMacroContent(
+					label : InchPounds,
+					value : 15883,
+					comment : // lb-in
+				)
+				ValDefineMacroContent(
+					label : FootPounds,
+					value : 15884,
+					comment : // lb-ft
+				)
+				ValDefineMacroContent(
+					label : VoltsPerVolt,
+					value : 15896,
+					comment : // Volts/Volt
+				)
+				ValDefineMacroContent(
+					label : mVoltsPerVolt,
+					value : 15897,
+					comment : // mVolts/Volt
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Velocity_IEPESensor_SensitivityUnits ***'
+				'//*** Value set VelocityIEPESensorSensitivityUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : MillivoltsPerMillimeterPerSecond,
+					value : 15963,
+					comment : // mVolts/mm/s
+				)
+				ValDefineMacroContent(
+					label : MilliVoltsPerInchPerSecond,
+					value : 15964,
+					comment : // mVolts/in/s
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Velocity_Units ***'
+				'//*** Value set VelocityUnits ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : MetersPerSecond,
+					value : 15959,
+					comment : // m/s
+				)
+				ValDefineMacroContent(
+					label : InchesPerSecond,
+					value : 15960,
+					comment : // in/s
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AI_Voltage_Units ***'
+				'//*** Values for DAQmx_AI_Voltage_ACRMS_Units ***'
+				'//*** Value set VoltageUnits1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Volts,
+					value : 10348,
+					comment : // Volts
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+				ValDefineMacroContent(
+					label : FromTEDS,
+					value : 12516,
+					comment : // From TEDS
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AO_Voltage_Units ***'
+				'//*** Value set VoltageUnits2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Volts,
+					value : 10348,
+					comment : // Volts
+				)
+				ValDefineMacroContent(
+					label : FromCustomScale,
+					value : 10065,
+					comment : // From Custom Scale
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Read_WaitMode ***'
+				'//*** Value set WaitMode ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : WaitForInterrupt,
+					value : 12523,
+					comment : // Wait For Interrupt
+				)
+				ValDefineMacroContent(
+					label : Poll,
+					value : 12524,
+					comment : // Poll
+				)
+				ValDefineMacroContent(
+					label : Yield,
+					value : 12525,
+					comment : // Yield
+				)
+				ValDefineMacroContent(
+					label : Sleep,
+					value : 12547,
+					comment : // Sleep
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Write_WaitMode ***'
+				'//*** Value set WaitMode2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Poll,
+					value : 12524,
+					comment : // Poll
+				)
+				ValDefineMacroContent(
+					label : Yield,
+					value : 12525,
+					comment : // Yield
+				)
+				ValDefineMacroContent(
+					label : Sleep,
+					value : 12547,
+					comment : // Sleep
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_RealTime_WaitForNextSampClkWaitMode ***'
+				'//*** Value set WaitMode3 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : WaitForInterrupt,
+					value : 12523,
+					comment : // Wait For Interrupt
+				)
+				ValDefineMacroContent(
+					label : Poll,
+					value : 12524,
+					comment : // Poll
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_RealTime_WriteRecoveryMode ***'
+				'//*** Value set WaitMode4 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : WaitForInterrupt,
+					value : 12523,
+					comment : // Wait For Interrupt
+				)
+				ValDefineMacroContent(
+					label : Poll,
+					value : 12524,
+					comment : // Poll
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AnlgWin_StartTrig_When ***'
+				'//*** Values for DAQmx_AnlgWin_RefTrig_When ***'
+				'//*** Value set WindowTriggerCondition1 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : EnteringWin,
+					value : 10163,
+					comment : // Entering Window
+				)
+				ValDefineMacroContent(
+					label : LeavingWin,
+					value : 10208,
+					comment : // Leaving Window
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_AnlgWin_PauseTrig_When ***'
+				'//*** Value set WindowTriggerCondition2 ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : InsideWin,
+					value : 10199,
+					comment : // Inside Window
+				)
+				ValDefineMacroContent(
+					label : OutsideWin,
+					value : 10251,
+					comment : // Outside Window
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Value set WriteBasicTEDSOptions ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : WriteToEEPROM,
+					value : 12538,
+					comment : // Write To EEPROM
+				)
+				ValDefineMacroContent(
+					label : WriteToPROM,
+					value : 12539,
+					comment : // Write To PROM Once
+				)
+				ValDefineMacroContent(
+					label : DoNotWrite,
+					value : 12540,
+					comment : // Do Not Write
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'//*** Values for DAQmx_Write_RelativeTo ***'
+				'//*** Value set WriteRelativeTo ***'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : FirstSample,
+					value : 10424,
+					comment : // First Sample
+				)
+				ValDefineMacroContent(
+					label : CurrWritePos,
+					value : 10430,
+					comment : // Current Write Position
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1127/4-Wire 16x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1127_Independent,
+					value : "1127/Independent",
+					comment : // 1127/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1128/4-Wire 16x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1128_Independent,
+					value : "1128/Independent",
+					comment : // 1128/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1130/4-Wire Quad 16x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1130_Independent,
+					value : "1130/Independent",
+					comment : // 1130/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1160_16_SPDT,
+					value : "1160/16-SPDT",
+					comment : // 1160/16-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1161_8_SPDT,
+					value : "1161/8-SPDT",
+					comment : // 1161/8-SPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1163R/Octal 4x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1166_32_SPDT,
+					value : "1166/32-SPDT",
+					comment : // 1166/32-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1166_16_DPDT,
+					value : "1166/16-DPDT",
+					comment : // 1166/16-DPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1167_Independent,
+					value : "1167/Independent",
+					comment : // 1167/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1169_100_SPST,
+					value : "1169/100-SPST",
+					comment : // 1169/100-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_1169_50_DPST,
+					value : "1169/50-DPST",
+					comment : // 1169/50-DPST
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1191/Quad 4x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1192_8_SPDT,
+					value : "1192/8-SPDT",
+					comment : // 1192/8-SPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 1193/Quad 4x1 Terminated Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_1193_Independent,
+					value : "1193/Independent",
+					comment : // 1193/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2503/4-Wire 12x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2510_Independent,
+					value : "2510/Independent",
+					comment : // 2510/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2512_Independent,
+					value : "2512/Independent",
+					comment : // 2512/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2514_Independent,
+					value : "2514/Independent",
+					comment : // 2514/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2515_Independent,
+					value : "2515/Independent",
+					comment : // 2515/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2520_80_SPST,
+					value : "2520/80-SPST",
+					comment : // 2520/80-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2521_40_DPST,
+					value : "2521/40-DPST",
+					comment : // 2521/40-DPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2522_53_SPDT,
+					value : "2522/53-SPDT",
+					comment : // 2522/53-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2523_26_DPDT,
+					value : "2523/26-DPDT",
+					comment : // 2523/26-DPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2527/4-Wire 16x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2527_Independent,
+					value : "2527/Independent",
+					comment : // 2527/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2530/4-Wire Dual 16x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2530_Independent,
+					value : "2530/Independent",
+					comment : // 2530/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2547/8x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2548_4_SPDT,
+					value : "2548/4-SPDT",
+					comment : // 2548/4-SPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2557/8x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2558_4_SPDT,
+					value : "2558/4-SPDT",
+					comment : // 2558/4-SPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2559/Terminated 2-SPDT'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2564_16_SPST,
+					value : "2564/16-SPST",
+					comment : // 2564/16-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2564_8_DPST,
+					value : "2564/8-DPST",
+					comment : // 2564/8-DPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2565_16_SPST,
+					value : "2565/16-SPST",
+					comment : // 2565/16-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2566_16_SPDT,
+					value : "2566/16-SPDT",
+					comment : // 2566/16-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2566_8_DPDT,
+					value : "2566/8-DPDT",
+					comment : // 2566/8-DPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2567_Independent,
+					value : "2567/Independent",
+					comment : // 2567/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2568_31_SPST,
+					value : "2568/31-SPST",
+					comment : // 2568/31-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2568_15_DPST,
+					value : "2568/15-DPST",
+					comment : // 2568/15-DPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2569_100_SPST,
+					value : "2569/100-SPST",
+					comment : // 2569/100-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2569_50_DPST,
+					value : "2569/50-DPST",
+					comment : // 2569/50-DPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2570_40_SPDT,
+					value : "2570/40-SPDT",
+					comment : // 2570/40-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2570_20_DPDT,
+					value : "2570/20-DPDT",
+					comment : // 2570/20-DPDT 
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2571_66_SPDT,
+					value : "2571/66-SPDT",
+					comment : // 2571/66-SPDT
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2576/2-Wire Sixteen 4x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2576_Independent,
+					value : "2576/Independent",
+					comment : // 2576/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2584/2-Wire 6x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2584_Independent,
+					value : "2584/Independent",
+					comment : // 2584/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2585/1-Wire 10x1 Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2586_10_SPST,
+					value : "2586/10-SPST",
+					comment : // 2586/10-SPST
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2586_5_DPST,
+					value : "2586/5-DPST",
+					comment : // 2586/5-DPST
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2593/Dual 4x1 Terminated Mux'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2593_Independent,
+					value : "2593/Independent",
+					comment : // 2593/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2598/Dual Transfer'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2599_2_SPDT,
+					value : "2599/2-SPDT",
+					comment : // 2599/2-SPDT
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2720_Independent,
+					value : "2720/Independent",
+					comment : // 2720/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2722_Independent,
+					value : "2722/Independent",
+					comment : // 2722/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2725_Independent,
+					value : "2725/Independent",
+					comment : // 2725/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2727_Independent,
+					value : "2727/Independent",
+					comment : // 2727/Independent
+				)
+				ValDefineMacroContent(
+					label : Switch_Topology_2790_Independent,
+					value : "2790/Independent",
+					comment : // 2790/Independent
+				)
+			)
+		)
+		ValDefineMacroStatement(
+			title : ValDefineMacroTitles[
+				'// 2798/Dual Transfer'
+			),
+			content : ValDefineMacroContents[
+				ValDefineMacroContent(
+					label : Switch_Topology_2799_2_SPDT,
+					value : "2799/2-SPDT",
+					comment : // 2799/2-SPDT
+				)
+			)
+		)
+	)
+)

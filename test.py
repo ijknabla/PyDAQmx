@@ -1,5 +1,5 @@
 
-from PyDAQmx.HeaderParser.pattern import *
+from PyDAQmx.headerparser.pattern import *
 
 """
 try:  
