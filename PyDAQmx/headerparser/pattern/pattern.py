@@ -46,12 +46,15 @@ bodyStatement       = pp.Forward()
 setname("preambleStatement")
 setname("bodyStatement")
 
+cppStyleCommentOnly = (
+    ~pp.cStyleComment
+    + pp.cppStyleComment
+    )
+
 NIheader = (
     pp.Group(preambleStatement)
     + pp.Group(bodyStatement)
     )
-
-
 
 #preamble 序文の文法定義
 preambleContent = pp.cStyleComment.copy()
@@ -95,26 +98,56 @@ ValDefineMacroLabel = pp.Combine(
     )
 setname("ValDefineMacroLabel")
 
-ValDefineMacroTitle = pp.cppStyleComment.copy()
+
+ValDefineMacroTitle = pp.Group(
+    OneOrMore(pp.cStyleComment.copy())
+    )
 setname("ValDefineMacroTitle")
 
+ValDefineMacroHeaderline = cppStyleComentOnly.copy()
+
+ValDefineMacroHeader = pp.Group(
+    pp.OneOrMore(ValDefineMacroHeaderline)
+    )
+setname("ValDefineMacroHeader")
+
+
+ValDefineMacroContent(
+    pp.Literal("#define").suppress()
+    + macroLabel
+    + expr
+    + cppStyleCommentOnly
+    )
+
+ValDefineMacroContents = pp.Group(
+    pp.OneOrMore(ValDefineMacro)
+    )
 
 ValDefineMacroContent = (
+    ValDefineMacroHeader
+    + ValDefineMacros
+    )
+
+(
     pp.Suppress(defineMacro)
     + ValDefineMacroLabel
     + expression
     + pp.cppStyleComment
     )
 
+ValDefineMacroContents = pp.OneOrMore(
+    ValDefineMacroContent)
+
 ValDefineMacroStatement = (
-    pp.Group(pp.OneOrMore(ValDefineMacroTitle))
-    + pp.Group(pp.OneOrMore(ValDefineMacroContent))
+    ValDefineMacroTitle
+    + ValDefineMacroContents
     )
 
 
-bodyStatement << pp.OneOrMore(
+bodyStatements << pp.OneOrMore(
     ValDefineMacroStatement | word.suppress()
     )
+
 
 #最後に定義しないといけないやつら
 word << (

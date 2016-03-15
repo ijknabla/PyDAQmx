@@ -1,6 +1,11 @@
 import itertools
 
-class ASTnode_base:
+class ASTelement:
+    tab = "\t"
+
+
+
+class ASTnode(ASTelement):
     _fields = NotImplemented
     def __init__(self, tokens):
         if not isinstance(tokens, list):
@@ -11,27 +16,31 @@ class ASTnode_base:
         else:
             raise ValueError(
                 "{self.__class__} expect {self._fields}\n"
-                "got {tokens}".format(
+                "got {} tokens below\n"
+                "{}".format(
+                    len(tokens),
+                    ("=" * 80 + "\n").join(map(str, tokens)),
                     **vars()
                     )
                 )
-        
+    
+    def __iter__(self):
+        return self._fields
 
     def keys(self):
-        return self._fields
+        return iter(self)
+
     def values(self):
         for field in self.keys():
             yield getattr(self, field)
+    
     def items(self):
         return zip(self.keys(), self.values())
-
-class tree_repr:
-    tab = " "
 
     def __repr__(self):
         return "\n".join(
             itertools.chain(
-                ["{self.__class__.__name__} (".format(**vars())],
+                ["{self.__class__.__name__}{".format(**vars())],
                 map(
                     lambda txt : self.tab + txt,
                     (
@@ -41,23 +50,35 @@ class tree_repr:
                             )
                         ).split("\n")
                 ),
-                [")"]
+                ["}"]
                 )
             )
 
-class ASTnode(tree_repr, ASTnode_base):pass
+class ASTlist(ASTelement):
+    def __init__(self, tokens):
+        if not isinstance(tokens, list):
+            tokens = tokens.asList()
+        self.list = list(tokens)
 
-class ValDefineMacroStatement(ASTnode):
-    _fields = (
-        "title",
-        "content"
-        )
+    def __iter__(self):
+        return self.list
 
-class ValDefineMacroTitle(ASTnode):
-    pass
+    def __repr__(self):
+        return "\n".join(
+            itertools.chain(
+                ["{self.__class__.__name__}[".format(**vars())],
+                map(
+                    lambda txt : self.tab + txt,
+                    (
+                        ",\n".join(
+                            map(repr, self)
+                            )
+                        ).split("\n")
+                ),
+                ["]"]
+                )
+            )
 
-class ValDefineMacroContent(ASTnode):
-    pass
 
 class NIheader(ASTnode):
     _fields = (
@@ -65,17 +86,24 @@ class NIheader(ASTnode):
         "body"
         )
 
-class ifndefMacroStatement(ASTnode):
+
+class bodyStatements(ASTlist):pass
+
+
+
+class ValDefineMacroStatement(ASTnode):
     _fields = (
-        "macroLabel", "code"
+        "title",
+        "definition"
         )
 
-class Preamble(ASTnode):
-    @classmethod
-    def handler(cls, tokens):
-        return cls(tokens.asList())
 
-class Comment(ASTnode):
-    @classmethod
-    def handler(cls, tokens):
-        return cls(*tokens.asList())
+class ValDefineMacroContent(ASTnode):
+    _fields = (
+        "label",
+        "value",
+        "comment"
+        )
+
+
+
