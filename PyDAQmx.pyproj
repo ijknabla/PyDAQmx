@@ -27,7 +27,7 @@
     <Compile Include="PyDAQmxTest\test_Task.py" />
     <Compile Include="PyDAQmxTest\test_variadic.py" />
     <Compile Include="PyDAQmxTest\__init__.py" />
-    <Compile Include="PyDAQmx\HeaderParser\ast.py">
+    <Compile Include="PyDAQmx\headerparser\ast.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
@@ -47,10 +47,10 @@
     <Compile Include="PyDAQmx\constants\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\HeaderParser\pattern.py">
+    <Compile Include="PyDAQmx\headerparser\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\HeaderParser\__init__.py">
+    <Compile Include="PyDAQmx\headerparser\pattern.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
@@ -76,7 +76,7 @@
     <Folder Include="PyDAQmxTest" />
     <Folder Include="PyDAQmx\example" />
     <Folder Include="PyDAQmx\constants\" />
-    <Folder Include="PyDAQmx\HeaderParser\" />
+    <Folder Include="PyDAQmx\headerparser\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\3.4" />
