@@ -47,13 +47,22 @@
     <Compile Include="PyDAQmx\constants\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PyDAQmx\headerparser\pattern\Preamble.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\headerparser\pattern\util.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\headerparser\pattern\ValDefineMacro.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PyDAQmx\headerparser\pattern\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\headerparser\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\headerparser\pattern.py">
+    <Compile Include="PyDAQmx\headerparser\pattern\pyparsing_.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
