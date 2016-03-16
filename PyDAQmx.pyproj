@@ -27,7 +27,13 @@
     <Compile Include="PyDAQmxTest\test_Task.py" />
     <Compile Include="PyDAQmxTest\test_variadic.py" />
     <Compile Include="PyDAQmxTest\__init__.py" />
-    <Compile Include="PyDAQmx\headerparser\ast.py">
+    <Compile Include="PyDAQmx\headerparser\ast\baseClass.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\headerparser\ast\preamble.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\headerparser\ast\valDefineMacro.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
@@ -47,13 +53,16 @@
     <Compile Include="PyDAQmx\constants\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\headerparser\pattern\Preamble.py">
+    <Compile Include="PyDAQmx\headerparser\ast\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\headerparser\pattern\preamble.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\headerparser\pattern\util.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\headerparser\pattern\ValDefineMacro.py">
+    <Compile Include="PyDAQmx\headerparser\pattern\valDefineMacro.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\headerparser\pattern\__init__.py">
@@ -89,6 +98,7 @@
     <Folder Include="PyDAQmx\example" />
     <Folder Include="PyDAQmx\constants\" />
     <Folder Include="PyDAQmx\headerparser\" />
+    <Folder Include="PyDAQmx\headerparser\ast\" />
     <Folder Include="PyDAQmx\headerparser\pattern\" />
   </ItemGroup>
   <ItemGroup>

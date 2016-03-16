@@ -37,7 +37,5 @@ identifier = (
 identifier.setName("identifier")
 
 
-expression = (
-    word
-    )
+expression = word.copy()
 expression.setName("expression")

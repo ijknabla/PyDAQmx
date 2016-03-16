@@ -1,5 +1,5 @@
 
-import pyparsing, functools
+import pyparsing, functools, types
 
 def setname(name):
     if not isinstance(name, str):raise TypeError
@@ -30,4 +30,12 @@ class KeywordSlot:
         if self.allkeyword:
             return pyparsing.MatchFirst(*self.allkeyword)
         else:
-            return pyparsing.empty
+            class DummyParserElement(pyparsing.ParserElement):
+                def __invert__(self):
+                    return self
+                def __add__(self, other):
+                    return other
+                def __repr__(self):
+                    return "dummyParserElement"
+
+            return DummyParserElement()

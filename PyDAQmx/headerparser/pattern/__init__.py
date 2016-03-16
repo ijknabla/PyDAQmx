@@ -2,19 +2,17 @@
 import pyparsing as pp
 
 from . import pyparsing_
-from . import Preamble
-from . import ValDefineMacro
+from . import preamble
+from . import valDefineMacro
 
 bodyStatement = pyparsing_.Forward()
 
 NIheader = (
-    Preamble.statement
+    preamble.statement
     + bodyStatement
     )
 
-bodyStatement << pyparsing_.Group(
-    pyparsing_.OneOrMore(
-        ValDefineMacro.statement
-        | pyparsing_.word.suppress()
-        )
+bodyStatement << pyparsing_.OneOrMore(
+    valDefineMacro.statement
+    | pyparsing_.word.suppress()
     )

@@ -1,11 +1,12 @@
+
 import itertools
 
-class ASTelement:
+class ASTelement: pass
+
+class NestedRepr:
     tab = "\t"
 
-
-
-class ASTnode(ASTelement):
+class ASTnode(ASTelement, NestedRepr):
     _fields = NotImplemented
     def __init__(self, tokens):
         if not isinstance(tokens, list):
@@ -25,7 +26,7 @@ class ASTnode(ASTelement):
                 )
     
     def __iter__(self):
-        return self._fields
+        return iter(self._fields)
 
     def keys(self):
         return iter(self)
@@ -40,7 +41,7 @@ class ASTnode(ASTelement):
     def __repr__(self):
         return "\n".join(
             itertools.chain(
-                ["{self.__class__.__name__}{".format(**vars())],
+                ["{self.__class__.__name__}{}".format("{", **vars())],
                 map(
                     lambda txt : self.tab + txt,
                     (
@@ -54,19 +55,19 @@ class ASTnode(ASTelement):
                 )
             )
 
-class ASTlist(ASTelement):
+class ASTlist(ASTelement, NestedRepr):
     def __init__(self, tokens):
         if not isinstance(tokens, list):
             tokens = tokens.asList()
         self.list = list(tokens)
 
     def __iter__(self):
-        return self.list
+        return iter(self.list)
 
     def __repr__(self):
         return "\n".join(
             itertools.chain(
-                ["{self.__class__.__name__}[".format(**vars())],
+                ["[".format(**vars())],
                 map(
                     lambda txt : self.tab + txt,
                     (
@@ -78,32 +79,3 @@ class ASTlist(ASTelement):
                 ["]"]
                 )
             )
-
-
-class NIheader(ASTnode):
-    _fields = (
-        "preamble",
-        "body"
-        )
-
-
-class bodyStatements(ASTlist):pass
-
-
-
-class ValDefineMacroStatement(ASTnode):
-    _fields = (
-        "title",
-        "definition"
-        )
-
-
-class ValDefineMacroContent(ASTnode):
-    _fields = (
-        "label",
-        "value",
-        "comment"
-        )
-
-
-

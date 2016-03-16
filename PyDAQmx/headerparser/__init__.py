@@ -1,40 +1,66 @@
-﻿import pyparsing
+﻿import pyparsing, types, operator
 
-from . import ast
 from . import pattern
+from . import ast
 from PyDAQmx.DAQmxConfig import dot_h_file
 
-def main():
-    ASTelements = set(
-        name 
-        for name, obj in ast.__dict__.items()
-        if (
-            isinstance(obj, type)
-            and issubclass(obj, ast.ASTelement)
-            )
+def combine():
+    patternSubModuleDict = dict(
+        (name, module)
+        for name, module in pattern.__dict__.items()
+        if isinstance(module, types.ModuleType)
         )
-    patterns = set(
-        name 
-        for name, obj in pattern.__dict__.items()
-        if hasattr(obj, "setParseAction")
+    astSubModuleDict = dict(
+        (name, module)
+        for name, module in ast.__dict__.items()
+        if isinstance(module, types.ModuleType)
         )
-    for name in ASTelements:
-        print(name)
-        if name in patterns:
-            getattr(pattern, name).setParseAction(
-                getattr(ast, name)
-                )
-        else:
-            raise RuntimeError(
-                "can't found pattern.{name}".format(**vars())
-                )
-    try:
-        global parsedResult
-        parsedResult = None
-        parsedResult = pattern.NIheader.parseFile(dot_h_file)[0]
-    except Exception as E:
-        print(E)
+    for name in (
+        set(patternSubModuleDict.keys())
+        & set(astSubModuleDict.keys())
+        ):
+        patternSubModule    = patternSubModuleDict[name]
+        astSubModule        = astSubModuleDict[name]
+        for attr, astElement in filter(
+            (lambda f : lambda xs : f(*xs))(
+                lambda attr, obj : isinstance(obj, type) and issubclass(obj, ast.ASTelement)
+                ),
+            astSubModule.__dict__.items()
+            ):
+            try:
+                patternElement = getattr(patternSubModule, attr)
+                try:
+                    patternElement.setParseAction(astElement)             
+                except AttributeError:
+                    raise RuntimeError
+            except AttributeError:
+                pass
 
-main()
-del main
- 
+def setParseAction(
+    patternModule   = pattern,
+    astModule       = ast
+    ):
+    for attr in set(dir(patternModule)) & set(dir(astModule)):
+        patternObj, astObj = map(
+            operator.attrgetter(attr),
+            (patternModule, astModule)
+            )
+        if (isinstance(patternObj, types.ModuleType)
+            and isinstance(astObj, types.ModuleType)):
+            setParseAction(patternObj, astObj)
+
+        if (isinstance(astObj, type)
+            and issubclass(astObj, ast.ASTelement)):
+            print(astObj)
+            patternObj.setParseAction(astObj)
+
+def parse_():
+    return pattern.NIheader.parseFile(dot_h_file)
+
+def parse():
+    setParseAction()
+    return parse_()
+
+def printout():
+    with open("result.txt", "w") as file:
+        file.write(repr(parse()))

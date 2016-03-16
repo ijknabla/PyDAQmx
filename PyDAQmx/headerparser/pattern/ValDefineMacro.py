@@ -6,35 +6,47 @@ macroLabel  = pyparsing_.identifier
 defineMacro = pyparsing_.Keyword("#define")
 
 
-ValDefineMacroLabel = pyparsing_.Combine(
+label = pyparsing_.Combine(
     pyparsing_.Literal("DAQmx_Val_").suppress()
     + pyparsing_.identifier
     )
+label.setName("<DAQmx_Val_{lavel}>")
 
-ValDefineMacroTitle = pyparsing_.Group(
-    pyparsing_.OneOrMore(pyparsing_.cStyleComment.copy())
+titleLine = pyparsing_.cStyleComment.copy()
+titleLine.setName("<title line>")
+
+title = pyparsing_.OneOrMore(titleLine)
+
+headerline = pyparsing_.cppStyleCommentOnly.copy()
+headerline.setName("<header line>")
+
+header = pyparsing_.OneOrMore(headerline)
+
+detail = pyparsing_.cppStyleCommentOnly.copy()
+detail.setName("<definition detail>")
+
+defineMacro = pyparsing_.Literal("#define").suppress()
+defineMacro.setName("<define macro>")
+
+definitionLine = pyparsing_.And([
+    defineMacro,
+    label,
+    pyparsing_.expression,
+    detail
+    ])
+
+definition = pyparsing_.OneOrMore(
+    definitionLine
     )
 
-ValDefineMacroHeaderline = pyparsing_.cppStyleCommentOnly.copy()
-
-
-ValDefineMacroHeader = pyparsing_.Group(
-    pyparsing_.OneOrMore(ValDefineMacroHeaderline)
+content = (
+    header
+    + definition
     )
 
-
-ValDefineMacroContent = (
-    pyparsing_.Literal("#define").suppress()
-    + macroLabel
-    + pyparsing_.expression
-    + pyparsing_.cppStyleCommentOnly
-    )
-
-ValDefineMacroContents = pyparsing_.Group(
-    pyparsing_.OneOrMore(ValDefineMacroContent)
-    )
+contents = pyparsing_.OneOrMore(content)
 
 statement = (
-    ValDefineMacroTitle
-    + ValDefineMacroContents
+    title
+    + contents
     )
