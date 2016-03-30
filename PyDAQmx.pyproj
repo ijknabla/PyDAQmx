@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{b0c23e73-39f3-4d67-afff-1ab052fd1ab0}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>test.py</StartupFile>
+    <StartupFile>PyDAQmx\util\sameinterface.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -75,6 +75,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
+    <Compile Include="PyDAQmx\util\sameinterface.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PyDAQmx\util\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="workspace.py">
       <SubType>Code</SubType>
     </Compile>
@@ -88,6 +94,7 @@
     <Content Include="doc\_static\favicon.ico" />
     <Content Include="doc\_static\logo.png" />
     <Content Include="doc\_templates\layout.html" />
+    <Content Include="PyDAQmx\headerparser\NIDAQmx.h" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="doc" />
@@ -100,6 +107,7 @@
     <Folder Include="PyDAQmx\headerparser\" />
     <Folder Include="PyDAQmx\headerparser\ast\" />
     <Folder Include="PyDAQmx\headerparser\pattern\" />
+    <Folder Include="PyDAQmx\util\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\3.4" />
