@@ -31,10 +31,12 @@ def sameinterface(
 
         @staticmethod
         def getBases(obj, objType = None):
-            if obj is not None:
+            if hasattr(obj, "__dict__"):
                 yield obj
             if objType is not None:
-                yield from objType.__mro__
+                for base in objType.__mro__:
+                    if hasattr(base, "__dict__"):
+                        yield base
 
         def __get__(self, obj, objType = None):
 

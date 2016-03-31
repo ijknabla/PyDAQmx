@@ -10,6 +10,8 @@ KeywordSlot         =   KEYWORDSLOT(Keyword)
 #start define Keywords section
 # end  define Keywords section
 
+def OneOrMoreList(pattern):
+    return Group(OneOrMore(pattern))
 
 cppStyleCommentOnly = (
     ~cStyleComment

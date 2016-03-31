@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import DAQmxConfig
+from . import utils
 
 from .DAQmxTypes import *
 #from .DAQmxConstants import *

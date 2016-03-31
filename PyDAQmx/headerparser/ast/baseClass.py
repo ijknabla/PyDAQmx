@@ -1,3 +1,4 @@
+import PyDAQmx
 
 import itertools, functools
 import collections.abc
@@ -56,55 +57,22 @@ class ASTnode(ASTelement, NestedRepr):
                 )
             )
 
-def ASTlistAsList(method : collections.abc.Callable):
-    name = method.__name__
 
-    @functools.wraps(getattr(list, name))
-    def returnmethod(self, *args, **kwrds):
-        return getattr(self.list, name)(*args, **kwrds)
-
-    return returnmethod
-
-def setListMethod(cls):
-    clsName = cls.__name__
-
-    @functools.wraps(cls.__new__)
-    def __new__(CLS, *args, **kwrds):
-        result = object.__new__(CLS)
-        setattr(result, name, cls.__new__(*args, **kwrds))
-        return result
-
-    attr_obj = dict(
-        (attr, methodGetter(attr, obj))
-        for attr, obj in cls.__dict__.items()
-        if attr not in {
-            "__new__",
-            "__init__",
-            "__getattribute__"
-            }
-        )
-
-def SameInterface(cls):
-    name = cls.__name__
-    print(name)
-    return cls
-
-SameInterface(list)
-
-class ASTlist(ASTelement, NestedRepr):
-    def __init__(self, tokens):
+class ASTlist(
+    ASTelement,
+    PyDAQmx.utils.sameinterface(list),
+    NestedRepr
+    ):
+    def __init__(self, tokens = []):
         if not isinstance(tokens, list):
             tokens = tokens.asList()
-    
-        self.list = list(tokens)
 
-    def __iter__(self):
-        return iter(self.list)
+        super().__init__(tokens)
 
     def __repr__(self):
         return "\n".join(
             itertools.chain(
-                ["[".format(**vars())],
+                ["{self.__class__.__name__}[".format(**vars())],
                 map(
                     lambda txt : self.tab + txt,
                     (
@@ -116,15 +84,3 @@ class ASTlist(ASTelement, NestedRepr):
                 ["]"]
                 )
             )
-
-    @ASTlistAsList
-    def __getitem__():
-        pass
-
-    @ASTlistAsList
-    def __setitem__():
-        pass
-
-    @ASTlistAsList
-    def __delitem__():
-        pass

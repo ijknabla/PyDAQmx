@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{b0c23e73-39f3-4d67-afff-1ab052fd1ab0}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>PyDAQmx\util\sameinterface.py</StartupFile>
+    <StartupFile>PyDAQmx\utils\sameinterface.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -75,10 +75,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
-    <Compile Include="PyDAQmx\util\sameinterface.py">
+    <Compile Include="PyDAQmx\utils\sameinterface.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PyDAQmx\util\__init__.py">
+    <Compile Include="PyDAQmx\utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="workspace.py">
@@ -107,7 +107,7 @@
     <Folder Include="PyDAQmx\headerparser\" />
     <Folder Include="PyDAQmx\headerparser\ast\" />
     <Folder Include="PyDAQmx\headerparser\pattern\" />
-    <Folder Include="PyDAQmx\util\" />
+    <Folder Include="PyDAQmx\utils\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{63c2d5c8-ce08-4883-8977-8b8dc259a07f}\3.4" />

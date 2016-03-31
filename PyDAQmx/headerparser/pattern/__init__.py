@@ -12,7 +12,7 @@ NIheader = (
     + bodyStatement
     )
 
-bodyStatement << pyparsing_.OneOrMore(
+bodyStatement << pyparsing_.OneOrMoreList(
     valDefineMacro.statement
     | pyparsing_.word.suppress()
     )
