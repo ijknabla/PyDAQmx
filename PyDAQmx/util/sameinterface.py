@@ -1,20 +1,14 @@
 import copy, types, functools, operator
 
 
+def sameinterface(
+    originalType : type,
+    newTypeName : str = "",
+    ) -> type:
 
-"""
-ListLike = SameInterface(list)
-ListLike([0, 1, 2])
--> ListLike._ = [0, 1, 2]
-ListLike.sort()
--> ListLike._.sort()
-
-"""
-
-
-def sameinterface(originalType : type) -> type:
 
     originalAttribute = "__original"
+
 
     class Descriptor:
         def __init__(self, attrName):
@@ -25,32 +19,55 @@ def sameinterface(originalType : type) -> type:
                     break
             self.attrName = attrName
 
+        @staticmethod
+        def convertObj(obj):
+            if obj is not None:
+                return getattr(obj, originalAttribute)
+
+        @staticmethod
+        def convertObjType(objType):
+            if objType is not None:
+                return originalType
+
+        @staticmethod
+        def getBases(obj, objType = None):
+            if obj is not None:
+                yield obj
+            if objType is not None:
+                yield from objType.__mro__
+
         def __get__(self, obj, objType = None):
 
-            src = []
+            _obj        = self.convertObj(obj)
+            _objType    = self.convertObjType(objType)
 
-            if obj is not None:
-                _obj = getattr(obj, originalAttribute)
-                src.append(_obj)
-            else:
-                _obj = None
-
-            if objType is not None:
-                _objType = originalType
-                src.extend(_objType.__mro__)
-            else:
-                _objType = None
-
-            for base in src:
+            for base in self.getBases(_obj, _objType):
                 if self.attrName in base.__dict__.keys():
                     target = base.__dict__[self.attrName]
                     try:
                         return target.__get__(_obj, _objType)
                     except AttributeError:
                         return target
-
-
             raise RuntimeError
+
+        def __set__(self, obj, value):
+
+            _obj = self.convertObj(obj)
+
+            try:
+                _obj.__dict__[self.attrName].__set__(_obj, value)
+            except Exception as e:
+                print(e)
+                _obj.__dict__[self.attrName] = value
+
+        def __delete__(self, obj):
+            
+            try:
+                del obj.__dict__[self.attrName]
+            except KeyError:
+                raise AttributeError(self.attrName)
+            
+
             
     def getNewAttributeDict() -> dict:        
         result = {originalAttribute : originalType}
@@ -81,7 +98,7 @@ def sameinterface(originalType : type) -> type:
         
         @functools.wraps(originalType.__new__)
         def new(cls, *args, **kwrds):
-            instance = super(cls, cls).__new__(cls)
+            instance = object.__new__(cls)
             setattr(
                 instance,
                 originalAttribute,
@@ -102,29 +119,11 @@ def sameinterface(originalType : type) -> type:
 
         dictionary["__init__"] = init
 
+    if newTypeName == "":
+        newTypeName = "{originalType.__name__}_like".format(**vars())
+
     return type(
-        "same interfece as {}".format(originalType.__name__),
+        newTypeName,
         (),
         getNewAttributeDict()
         )
-
-if __name__ == "__main__":
-    class A:
-        def m(self, a):
-            print(self)
-            return a
-        
-        @classmethod
-        def cm(cls, a):
-            print(cls)
-            return a
-        @staticmethod
-        def sm(a):
-            return a
-
-    A_ = sameinterface(A)
-    a = A_()
-    print("A_.original", A_.__original)
-    print("a.original",  a.__original)
-    print(A_, A_.m, A_.cm, A_.sm)
-    print(a, a.m, a.cm, a.sm)
