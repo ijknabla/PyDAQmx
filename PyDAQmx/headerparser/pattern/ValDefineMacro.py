@@ -15,12 +15,12 @@ label.setName("<DAQmx_Val_{lavel}>")
 titleLine = pyparsing_.cStyleComment.copy()
 titleLine.setName("<title line>")
 
-title = pyparsing_.OneOrMoreList(titleLine)
+title = pyparsing_.OneOrMore(titleLine)
 
 headerline = pyparsing_.cppStyleCommentOnly.copy()
 headerline.setName("<header line>")
 
-header = pyparsing_.Group(pyparsing_.OneOrMore(headerline))
+header = pyparsing_.OneOrMore(headerline)
 
 detail = pyparsing_.cppStyleCommentOnly.copy()
 detail.setName("<definition detail>")
@@ -35,7 +35,7 @@ definitionLine = pyparsing_.And([
     detail
     ])
 
-definition = pyparsing_.OneOrMoreList(
+definition = pyparsing_.OneOrMore(
     definitionLine
     )
 
@@ -44,7 +44,7 @@ content = (
     + definition
     )
 
-contents = pyparsing_.OneOrMoreList(content)
+contents = pyparsing_.OneOrMore(content)
 
 statement = (
     title

@@ -1,21 +1,54 @@
 import PyDAQmx
 
 import itertools, functools
-import collections.abc
+import collections
 
 class ASTelement: pass
 
 class NestedRepr:
-    tab = "\t"
+    tab = " "
 
-class ASTnode(ASTelement, NestedRepr):
+    def __repr__(self):
+        if   isinstance(self, collections.Mapping):
+            return "\n".join(
+                itertools.chain(
+                    ["{self.__class__.__name__}{}".format("{", **vars())],
+                    map(
+                        lambda txt : self.tab + txt,
+                        (
+                            ",\n".join(
+                                "{} : {}".format(*field_value)
+                                for field_value in self.items()
+                                )
+                            ).split("\n")
+                    ),
+                    ["}"]
+                    )
+                )
+        elif isinstance(self, collections.abc.Sequence):
+            return "\n".join(
+                itertools.chain(
+                    ["{self.__class__.__name__}[".format(**vars())],
+                    map(
+                        lambda txt : self.tab + txt,
+                        (
+                            ",\n".join(
+                                map(repr, self)
+                                )
+                            ).split("\n")
+                    ),
+                    ["]"]
+                    )
+            )
+            
+
+class ASTnode(ASTelement, NestedRepr, dict):
     _fields = NotImplemented
     def __init__(self, tokens):
-        if not isinstance(tokens, list):
+        if hasattr(tokens, "asList"):
             tokens = tokens.asList()
         if len(tokens) == len(self._fields):
-            for field, token in zip(self._fields, tokens):
-                setattr(self, field, token)
+            super().__init__(zip(self._fields, tokens))
         else:
             raise ValueError(
                 "{self.__class__} expect {self._fields}\n"
@@ -26,61 +59,25 @@ class ASTnode(ASTelement, NestedRepr):
                     **vars()
                     )
                 )
+    def __setattr__(self, attr, value):
+        if attr in self._fields:
+            self[attr] = value
+        else:
+            super().__setattr__(attr, value)
+     
+    def __getattr__(self, attr):
+        try:
+            return super().__getattribute__(attr)
+        except AttributeError:
+            return self[attr]
+
+
+
+class ASTlist(ASTelement, NestedRepr, collections.UserList):
     
-    def __iter__(self):
-        return iter(self._fields)
-
-    def keys(self):
-        return iter(self)
-
-    def values(self):
-        for field in self.keys():
-            yield getattr(self, field)
-    
-    def items(self):
-        return zip(self.keys(), self.values())
-
-    def __repr__(self):
-        return "\n".join(
-            itertools.chain(
-                ["{self.__class__.__name__}{}".format("{", **vars())],
-                map(
-                    lambda txt : self.tab + txt,
-                    (
-                        ",\n".join(
-                            "{} : {}".format(*field_value)
-                            for field_value in self.items()
-                            )
-                        ).split("\n")
-                ),
-                ["}"]
-                )
-            )
-
-
-class ASTlist(
-    ASTelement,
-    PyDAQmx.utils.sameinterface(list),
-    NestedRepr
-    ):
     def __init__(self, tokens = []):
-        if not isinstance(tokens, list):
+
+        if hasattr(tokens, "asList"):
             tokens = tokens.asList()
 
         super().__init__(tokens)
-
-    def __repr__(self):
-        return "\n".join(
-            itertools.chain(
-                ["{self.__class__.__name__}[".format(**vars())],
-                map(
-                    lambda txt : self.tab + txt,
-                    (
-                        ",\n".join(
-                            map(repr, self)
-                            )
-                        ).split("\n")
-                ),
-                ["]"]
-                )
-            )

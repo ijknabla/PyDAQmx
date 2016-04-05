@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{b0c23e73-39f3-4d67-afff-1ab052fd1ab0}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>PyDAQmx\utils\sameinterface.py</StartupFile>
+    <StartupFile>workspace.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>

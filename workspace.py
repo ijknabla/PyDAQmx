@@ -1,3 +1,2 @@
 import PyDAQmx
-
-a = PyDAQmx.headerparser.parse()
+import PyDAQmx.constants

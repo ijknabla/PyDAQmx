@@ -21,7 +21,6 @@ def setParseAction(
 
         if (isinstance(astObj, type)
             and issubclass(astObj, ast.ASTelement)):
-            print(astObj)
             patternObj.setParseAction(astObj)
 
 def parse_():
@@ -34,8 +33,10 @@ def parse_():
 
 def parse():
     setParseAction()
-    return parse_()
+    return parse_()[0]
 
 def printout():
     with open("result.txt", "w") as file:
         file.write(repr(parse()))
+
+result = parse()

@@ -10,9 +10,6 @@ KeywordSlot         =   KEYWORDSLOT(Keyword)
 #start define Keywords section
 # end  define Keywords section
 
-def OneOrMoreList(pattern):
-    return Group(OneOrMore(pattern))
-
 cppStyleCommentOnly = (
     ~cStyleComment
     + cppStyleComment
@@ -20,7 +17,17 @@ cppStyleCommentOnly = (
 cppStyleCommentOnly.setName(
     '"// C++ Style Comment $"'
     )
+cppStyleCommentOnly.setParseAction(
+    lambda tokens : (
+        lambda string : string.rstrip()[2:]
+        )(tokens[0])
+    )
 
+cStyleComment.setParseAction(
+    lambda tokens : (
+        lambda string : string.rstrip()[2:-2]
+        )(tokens[0])
+    )
 
 word = (
     ~KEYWORDSLOT.getallkeyword()
