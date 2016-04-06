@@ -1,2 +1,2 @@
-import PyDAQmx
+
 import PyDAQmx.constants

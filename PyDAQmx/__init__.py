@@ -4,7 +4,6 @@ from . import DAQmxConfig
 from . import utils
 
 from .DAQmxTypes import *
-#from .DAQmxConstants import *
 from .DAQmxFunctions import *
 from .Task import Task
 from . import headerparser

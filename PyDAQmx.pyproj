@@ -38,7 +38,6 @@
     </Compile>
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
     <Compile Include="PyDAQmx\DAQmxConfig.py" />
-    <Compile Include="PyDAQmx\DAQmxConstants.py" />
     <Compile Include="PyDAQmx\DAQmxFunctions.py" />
     <Compile Include="PyDAQmx\DAQmxTypes.py" />
     <Compile Include="PyDAQmx\example\AnalogInput_acq_IntClk.py" />
