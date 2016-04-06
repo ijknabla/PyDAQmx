@@ -2,7 +2,7 @@ import sys
 
 from ctypes import *
 import ctypes
-from .DAQmxConstants import DAQmx_copyright_year
+from PyDAQmx.constants import copyright_year as DAQmx_copyright_year
 
 # New types definitions
 # Correspondance between the name used in the NiDAQmx.h file and ctypes

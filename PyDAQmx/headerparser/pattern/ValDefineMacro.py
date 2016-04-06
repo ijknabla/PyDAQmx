@@ -8,8 +8,12 @@ defineMacro = pyparsing_.Keyword("#define")
 
 label = pyparsing_.Combine(
     pyparsing_.Literal("DAQmx_Val_").suppress()
-    + pyparsing_.identifier
+    + pyparsing_.Word(
+        pyparsing_.alphanums,
+        pyparsing_.alphanums + "_"
+        )
     )
+
 label.setName("<DAQmx_Val_{lavel}>")
 
 titleLine = pyparsing_.cStyleComment.copy()
@@ -35,8 +39,15 @@ definitionLine = pyparsing_.And([
     detail
     ])
 
+definitionLineNotDetail = pyparsing_.And([
+    defineMacro,
+    label,
+    pyparsing_.expression
+    ])
+
 definition = pyparsing_.OneOrMore(
     definitionLine
+    | definitionLineNotDetail
     )
 
 content = (

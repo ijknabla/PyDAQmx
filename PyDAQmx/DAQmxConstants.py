@@ -18,7 +18,7 @@ for line in include_file:
 
 for copyright_line in preamble:
     if "Copyright" in copyright_line:
-        DAQmx_copyright_year = max(list(map(int, re.findall('\d\d\d\d', copyright_line))))
+        
         break
 else:
     DAQmx_copyright_year = 2003

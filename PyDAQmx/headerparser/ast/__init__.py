@@ -9,11 +9,11 @@ from . import preamble
 class NIheader(ASTnode):
     _fields = (
         "preamble",
-        "body"
+        "statements"
         )
 
 
-class bodyStatements(ASTlist):pass
+class statements(ASTlist):pass
 
 
 

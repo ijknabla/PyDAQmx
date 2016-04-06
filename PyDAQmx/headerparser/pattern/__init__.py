@@ -5,14 +5,14 @@ from . import pyparsing_
 from . import preamble
 from . import valDefineMacro
 
-bodyStatements = pyparsing_.Forward()
+statements = pyparsing_.Forward()
 
 NIheader = (
     preamble.statement
-    + bodyStatements
+    + statements
     )
 
-bodyStatements << pyparsing_.OneOrMore(
+statements << pyparsing_.OneOrMore(
     valDefineMacro.statement
     | pyparsing_.word.suppress()
     )

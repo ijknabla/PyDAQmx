@@ -20,9 +20,18 @@ class header(ASTlist):pass
 
 class definition(ASTlist):pass
 
-class definitionLine(ASTnode):
+class definitionLineBase(ASTnode):
+    pass
+
+class definitionLine(definitionLineBase):
     _fields = (
         "label",
         "expression",
         "detail"
+        )
+
+class definitionLineNotDetail(definitionLineBase):
+    _fields = (
+        "label",
+        "expression"
         )
