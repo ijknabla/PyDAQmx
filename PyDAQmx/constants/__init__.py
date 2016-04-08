@@ -21,6 +21,9 @@ def main():
             for content in statement.contents:
                 header      = content.header
                 definition  = content.definition
+
+                print(header)
+
                 for definitionLine in content.definition:
                     label       = definitionLine.label
                     expression  = definitionLine.expression
@@ -36,6 +39,7 @@ def main():
                         pass
 
                     globals()[label] = value
+
 
     copyright_year = 2013
     for preambleLine in PyDAQmx.headerparser.result.preamble:
