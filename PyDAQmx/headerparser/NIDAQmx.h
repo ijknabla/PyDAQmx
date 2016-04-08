@@ -1093,7 +1093,7 @@ typedef uInt32             CalHandle;
 #define DAQmx_Val_GroupByChannel                                          0   // Group by Channel
 #define DAQmx_Val_GroupByScanNumber                                       1   // Group by Scan Number
 
-//*** Values for the Signal Modifiers parameter of DAQmxConnectTerms ***/
+//*** Values for the Signal Modifiers parameter of DAQmxConnectTerms ***
 #define DAQmx_Val_DoNotInvertPolarity                                     0   // Do not invert polarity
 #define DAQmx_Val_InvertPolarity                                          1   // Invert polarity
 

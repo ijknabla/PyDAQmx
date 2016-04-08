@@ -74,6 +74,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
+    <Compile Include="PyDAQmx\TYPES\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PyDAQmx\utils\sameinterface.py">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +109,7 @@
     <Folder Include="PyDAQmx\headerparser\" />
     <Folder Include="PyDAQmx\headerparser\ast\" />
     <Folder Include="PyDAQmx\headerparser\pattern\" />
+    <Folder Include="PyDAQmx\TYPES\" />
     <Folder Include="PyDAQmx\utils\" />
   </ItemGroup>
   <ItemGroup>

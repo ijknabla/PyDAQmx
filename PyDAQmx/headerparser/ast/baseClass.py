@@ -59,6 +59,20 @@ class ASTnode(ASTelement, NestedRepr, dict):
                     **vars()
                     )
                 )
+
+    def __iter__(self):
+        return iter(self._fields)
+
+    def keys(self):
+        return iter(self)
+
+    def values(self):
+        for key in self.keys():
+            yield self[key]
+
+    def items(self):
+        return zip(self.keys(), self.values())
+
     def __setattr__(self, attr, value):
         if attr in self._fields:
             self[attr] = value
