@@ -28,6 +28,7 @@ def main():
             for content in contents:
                 header, definition = content.values()
                 
+                """
                 def header_generator():
                     for text in "".join(header).split("***"):
                         if text and not text.isspace():
@@ -35,12 +36,12 @@ def main():
 
                 for headerLine in header_generator():
                     try:
-                        print(parseHeader(headerLine))
+                        parseHeader(headerLine)
                     except Exception as e:
                         import sys
                         sys.stderr.write(headerLine + "\n")
                         sys.stderr.write(str(e)+"\n")
-
+                """
                 for definitionLine in definition:
                     try:
                         label, expression, detail   = definitionLine.values()

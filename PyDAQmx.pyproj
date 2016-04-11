@@ -39,7 +39,6 @@
     <Compile Include="PyDAQmx\DAQmxCallBack.py" />
     <Compile Include="PyDAQmx\DAQmxConfig.py" />
     <Compile Include="PyDAQmx\DAQmxFunctions.py" />
-    <Compile Include="PyDAQmx\DAQmxTypes.py" />
     <Compile Include="PyDAQmx\example\AnalogInput_acq_IntClk.py" />
     <Compile Include="PyDAQmx\example\callback.py" />
     <Compile Include="PyDAQmx\example\callback_oo.py" />
@@ -74,7 +73,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\Task.py" />
-    <Compile Include="PyDAQmx\TYPES\__init__.py">
+    <Compile Include="PyDAQmx\types\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyDAQmx\utils\sameinterface.py">
@@ -109,7 +108,7 @@
     <Folder Include="PyDAQmx\headerparser\" />
     <Folder Include="PyDAQmx\headerparser\ast\" />
     <Folder Include="PyDAQmx\headerparser\pattern\" />
-    <Folder Include="PyDAQmx\TYPES\" />
+    <Folder Include="PyDAQmx\types\" />
     <Folder Include="PyDAQmx\utils\" />
   </ItemGroup>
   <ItemGroup>
